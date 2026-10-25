@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { gallery } from "../data/wedding";
 import { Reveal } from "./Reveal";
+import { asset } from "../utils/asset";
 import section from "../styles/section.module.css";
 import styles from "./PhotoGallery.module.css";
 
@@ -30,7 +31,7 @@ export function PhotoGallery() {
                 onClick={() => setActiveId(img.id)}
                 aria-label={`View photo: ${img.alt}`}
               >
-                <img src={img.src} alt={img.alt} loading="lazy" />
+                <img src={asset(img.src)} alt={img.alt} loading="lazy" />
               </button>
             </Reveal>
           ))}
@@ -39,7 +40,7 @@ export function PhotoGallery() {
 
       {active && (
         <div className={styles.lightbox} role="dialog" aria-modal="true" onClick={() => setActiveId(null)}>
-          <img src={active.src} alt={active.alt} />
+          <img src={asset(active.src)} alt={active.alt} />
           {active.caption && <p className={styles.caption}>{active.caption}</p>}
           <button type="button" className={styles.close} onClick={() => setActiveId(null)} aria-label="Close">
             ×

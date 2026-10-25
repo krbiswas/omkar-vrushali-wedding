@@ -20,6 +20,14 @@
   margin-top: var(--space-2);
 }
 
+.venuePhoto {
+  width: 100%;
+  max-width: 420px;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-gold-500);
+  margin-top: var(--space-4);
+}
+
 .directionsButton,
 .directionsButtonDisabled {
   display: inline-block;

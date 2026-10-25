@@ -2,6 +2,7 @@ import { MapPin } from "lucide-react";
 import { wedding } from "../data/wedding";
 import { Reveal } from "./Reveal";
 import { KalashMotif } from "./Motifs";
+import { asset } from "../utils/asset";
 import section from "../styles/section.module.css";
 import styles from "./VenueSection.module.css";
 
@@ -33,6 +34,9 @@ export function VenueSection() {
           </button>
         )}
 
+        {venue.photo && (
+          <img className={styles.venuePhoto} src={asset(venue.photo)} alt={`${venue.name} venue`} loading="lazy" />
+        )}
         {venue.travelInfo && <p className={section.body}>{venue.travelInfo}</p>}
         {venue.parkingInfo && <p className={section.body}>{venue.parkingInfo}</p>}
       </Reveal>

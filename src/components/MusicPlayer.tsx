@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Music, Pause } from "lucide-react";
 import { music } from "../data/wedding";
+import { asset } from "../utils/asset";
 import styles from "./MusicPlayer.module.css";
 
 export function MusicPlayer() {
@@ -28,7 +29,7 @@ export function MusicPlayer() {
 
   return (
     <div className={styles.player}>
-      <audio ref={audioRef} src={music.src} loop onEnded={() => setPlaying(false)} />
+      <audio ref={audioRef} src={asset(music.src)} loop onEnded={() => setPlaying(false)} />
       <button
         type="button"
         className={styles.button}
