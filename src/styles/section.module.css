@@ -1,0 +1,45 @@
+.section {
+  padding: var(--space-7) var(--space-4);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+.eyebrow {
+  font-family: var(--font-devanagari);
+  color: var(--color-saffron-500);
+  font-size: 1.1rem;
+  margin-bottom: var(--space-2);
+}
+
+.heading {
+  font-size: clamp(1.8rem, 6vw, 2.6rem);
+  margin-bottom: var(--space-4);
+}
+
+.body {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  max-width: 48ch;
+  margin: 0 auto;
+}
+
+.divider {
+  width: 64px;
+  height: 2px;
+  background: var(--color-gold-500);
+  margin: var(--space-4) auto;
+  opacity: 0.6;
+}
+
+.pendingNote {
+  margin-top: var(--space-4);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  border: 1px dashed var(--color-gold-500);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  display: inline-block;
+}

@@ -1,0 +1,30 @@
+.player {
+  position: fixed;
+  bottom: var(--space-4);
+  left: var(--space-4);
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-maroon-700);
+  color: var(--color-ivory-100);
+  border: 1px solid var(--color-gold-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-soft);
+}
+
+.error {
+  font-size: 0.75rem;
+  background: var(--color-ivory-100);
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+  color: var(--text-muted);
+}

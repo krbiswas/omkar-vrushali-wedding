@@ -1,0 +1,44 @@
+.blessing {
+  font-size: 1.3rem;
+  color: var(--color-saffron-500);
+  margin-bottom: var(--space-3);
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-3);
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: var(--space-5);
+}
+
+.shareButton,
+.copyButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 0.6rem 1.3rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  border: 1px solid var(--color-gold-500);
+  cursor: pointer;
+}
+
+.shareButton {
+  background: #25d366;
+  color: #fff;
+  border-color: #25d366;
+}
+
+.copyButton {
+  background: var(--color-ivory-100);
+  color: var(--accent);
+}
+
+.rsvp {
+  margin-top: var(--space-6);
+  padding: var(--space-4);
+  border: 1px solid var(--color-gold-500);
+  border-radius: var(--radius-md);
+  display: inline-block;
+}

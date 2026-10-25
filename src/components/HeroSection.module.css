@@ -1,0 +1,22 @@
+.hero {
+  padding-top: var(--space-6);
+}
+
+.names {
+  font-size: clamp(2.2rem, 9vw, 3.4rem);
+  margin-bottom: var(--space-2);
+}
+
+.amp {
+  color: var(--color-saffron-500);
+}
+
+.tagline {
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+  margin-bottom: var(--space-5);
+}
+
+.scratchWrap {
+  margin-top: var(--space-5);
+}

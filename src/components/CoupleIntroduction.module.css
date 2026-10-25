@@ -1,0 +1,60 @@
+.featuredPhoto {
+  margin: var(--space-5) auto 0;
+  max-width: 420px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 2px solid var(--color-gold-500);
+  box-shadow: var(--shadow-soft);
+}
+
+.featuredPhoto img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.portraits {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-5);
+  margin-top: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.portrait {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.portrait img {
+  width: 180px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--color-gold-500);
+  box-shadow: var(--shadow-soft);
+}
+
+.placeholder {
+  width: 180px;
+  height: 220px;
+  border-radius: var(--radius-lg);
+  border: 2px dashed var(--color-gold-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ivory-200);
+}
+
+.placeholderMotif {
+  width: 72px;
+  height: 48px;
+}
+
+.portraitCaption {
+  font-family: var(--font-display);
+  color: var(--accent);
+  font-size: 1.05rem;
+}

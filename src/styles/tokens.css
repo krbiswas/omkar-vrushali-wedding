@@ -1,0 +1,107 @@
+:root {
+  /* Colour palette — deep maroon, saffron, ivory, antique gold */
+  --color-maroon-900: #4a0d1a;
+  --color-maroon-700: #6b1424;
+  --color-maroon-500: #8a1c30;
+  --color-saffron-500: #e8762c;
+  --color-saffron-300: #f2a65a;
+  --color-ivory-100: #fdf8ef;
+  --color-ivory-200: #f7ecd9;
+  --color-cream-300: #f0e0c2;
+  --color-gold-500: #c89b3c;
+  --color-gold-300: #e3c878;
+  --color-green-600: #3f5d3a;
+  --color-ink-900: #2a1710;
+  --color-ink-700: #4a3226;
+
+  --font-devanagari: "Tiro Devanagari Marathi", "Yatra One", serif;
+  --font-display: "Marcellus", "Cormorant Garamond", serif;
+  --font-body: "Cormorant Garamond", "Marcellus", serif;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
+  --space-7: 6rem;
+
+  --radius-sm: 6px;
+  --radius-md: 14px;
+  --radius-lg: 28px;
+
+  --shadow-soft: 0 10px 40px rgba(74, 13, 26, 0.18);
+  --shadow-gold: 0 0 0 1px var(--color-gold-500), 0 8px 24px rgba(200, 155, 60, 0.25);
+
+  --max-width: 720px;
+
+  color-scheme: light;
+  --bg: var(--color-ivory-100);
+  --surface: var(--color-ivory-200);
+  --text: var(--color-ink-900);
+  --text-muted: var(--color-ink-700);
+  --accent: var(--color-maroon-700);
+  --accent-strong: var(--color-maroon-900);
+  --gold: var(--color-gold-500);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-saffron-500);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  margin: 0;
+  color: var(--accent-strong);
+}
+
+.marathi {
+  font-family: var(--font-devanagari);
+}
+
+button {
+  font-family: inherit;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

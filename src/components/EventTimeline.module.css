@@ -1,0 +1,50 @@
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.card {
+  background: var(--color-ivory-100);
+  border: 1px solid var(--color-gold-500);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  text-align: left;
+}
+
+.eventName {
+  font-size: 1.3rem;
+  color: var(--accent);
+}
+
+.eventNameMarathi {
+  font-size: 1.05rem;
+  color: var(--color-saffron-500);
+}
+
+.eventMeta {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin: var(--space-1) 0 0;
+}
+
+.eventDescription {
+  margin-top: var(--space-2);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.eventDressCode {
+  margin-top: var(--space-2);
+  font-size: 0.85rem;
+  color: var(--color-green-600);
+}
+
+.directions {
+  display: inline-block;
+  margin-top: var(--space-3);
+  color: var(--accent);
+  font-weight: 600;
+  text-decoration: underline;
+}

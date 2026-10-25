@@ -1,0 +1,100 @@
+.wrapper {
+  position: relative;
+  width: min(92vw, 440px);
+  margin: 0 auto;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  background: var(--color-ivory-200);
+}
+
+.revealLayer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--space-4);
+  background: linear-gradient(160deg, var(--color-ivory-100), var(--color-cream-300));
+}
+
+.dateLabel {
+  font-family: var(--font-display);
+  color: var(--color-maroon-900);
+  font-size: clamp(1.8rem, 7vw, 2.6rem);
+  margin-bottom: var(--space-2);
+}
+
+.dateDay {
+  display: block;
+  font-size: clamp(3.2rem, 14vw, 4.5rem);
+  line-height: 1;
+  color: var(--color-saffron-500);
+  font-weight: 600;
+}
+
+.message {
+  margin-top: var(--space-3);
+  font-family: var(--font-devanagari);
+  font-size: clamp(1rem, 3.5vw, 1.25rem);
+  color: var(--color-ink-700);
+  max-width: 28ch;
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+}
+
+.hint {
+  position: absolute;
+  bottom: var(--space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.85rem;
+  color: var(--color-ivory-100);
+  background: rgba(74, 13, 26, 0.55);
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.revealButton {
+  margin-top: var(--space-3);
+  background: var(--color-maroon-700);
+  color: var(--color-ivory-100);
+  border: 1px solid var(--color-gold-500);
+  padding: 0.6rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+}
+
+.revealButton:hover {
+  background: var(--color-maroon-900);
+}
+
+.progressTrack {
+  position: absolute;
+  top: var(--space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 4px;
+  background: rgba(74, 13, 26, 0.15);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--color-gold-500);
+  transition: width 0.15s ease-out;
+}

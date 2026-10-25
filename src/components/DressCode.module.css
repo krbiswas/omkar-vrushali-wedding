@@ -1,0 +1,38 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.card {
+  background: var(--color-ivory-100);
+  border: 1px solid var(--color-gold-500);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+}
+
+.audience {
+  color: var(--accent);
+  font-size: 1.1rem;
+  margin-bottom: var(--space-2);
+}
+
+.description {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.swatches {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: center;
+  margin-top: var(--space-3);
+}
+
+.swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--color-gold-500);
+}
