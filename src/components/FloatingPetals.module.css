@@ -8,25 +8,30 @@
 
 .petal {
   position: absolute;
-  width: 14px;
-  height: 14px;
+  top: -5%;
   opacity: 0;
-  animation: drift linear infinite;
+  animation-name: drift;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.08));
 }
 
 @keyframes drift {
   0% {
-    transform: translate(0, -10vh) rotate(0deg);
+    transform: translate(0, -10vh) rotate(var(--rotate-start, 0deg));
     opacity: 0;
   }
-  10% {
-    opacity: 0.8;
+  8% {
+    opacity: 0.85;
+  }
+  50% {
+    transform: translate(calc(var(--drift, 60px) * 0.5), 45vh) rotate(calc(var(--rotate-start, 0deg) + 140deg));
   }
   90% {
     opacity: 0.6;
   }
   100% {
-    transform: translate(40px, 70vh) rotate(260deg);
+    transform: translate(var(--drift, 60px), 92vh) rotate(calc(var(--rotate-start, 0deg) + 280deg));
     opacity: 0;
   }
 }

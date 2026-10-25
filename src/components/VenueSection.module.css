@@ -1,53 +1,91 @@
-.archWrap {
-  position: relative;
-  width: min(90vw, 320px);
+.venueLayout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-5);
+  max-width: 640px;
   margin: 0 auto;
 }
 
-.arch {
-  width: 100%;
-  height: auto;
-  display: block;
+.panditScene {
+  flex-shrink: 0;
+  width: 200px;
 }
 
-.archContent {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 14%;
+.venueCard {
+  flex: 1;
+  min-width: 0;
+}
+
+.cardInner {
+  position: relative;
+  background: var(--color-parchment);
+  border: 1px solid var(--color-gold-300);
+  border-radius: var(--radius-md);
+  padding: var(--space-5) var(--space-4);
   text-align: center;
-  padding: 0 var(--space-4);
+  box-shadow: 0 4px 20px rgba(200, 155, 60, 0.12);
+}
+
+.topBorder,
+.bottomBorder {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-gold-500) 30%, var(--color-gold-500) 70%, transparent);
+  opacity: 0.4;
+}
+
+.topBorder {
+  top: 10px;
+}
+
+.bottomBorder {
+  bottom: 10px;
 }
 
 .venueName {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: clamp(1.2rem, 3.5vw, 1.5rem);
   color: var(--accent);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: var(--space-1);
+  margin-bottom: var(--space-2);
 }
 
 .address {
   color: var(--text-muted);
-  margin-top: var(--space-2);
   font-size: 0.9rem;
+  line-height: 1.6;
+  margin-bottom: var(--space-3);
 }
 
 .directionsButton,
 .directionsButtonDisabled {
-  display: inline-block;
-  margin-top: var(--space-3);
-  padding: 0.5rem 1.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.55rem 1.4rem;
   border-radius: 999px;
   font-size: 0.85rem;
+  font-family: var(--font-body);
+  letter-spacing: 0.03em;
   border: 1px solid var(--color-gold-500);
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
 }
 
 .directionsButton {
   background: var(--color-maroon-700);
   color: var(--color-ivory-100);
+}
+
+.directionsButton:hover {
+  background: var(--color-maroon-900);
+  transform: translateY(-1px);
 }
 
 .directionsButtonDisabled {
@@ -57,10 +95,13 @@
   opacity: 0.6;
 }
 
-.venuePhoto {
-  width: 100%;
-  max-width: 420px;
-  border-radius: var(--radius-lg);
-  border: 2px solid var(--color-gold-500);
-  margin-top: var(--space-5);
+@media (max-width: 600px) {
+  .venueLayout {
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .panditScene {
+    width: 160px;
+  }
 }

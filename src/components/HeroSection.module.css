@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  padding-top: var(--space-6);
+  padding-top: var(--space-5);
   overflow: hidden;
 }
 
@@ -13,26 +13,22 @@
   z-index: 1;
 }
 
-.flyingPeacock {
+.peacockWrap {
   position: absolute;
-  top: 2%;
-  right: 4%;
+  top: 0;
+  right: 2%;
   width: 150px;
-  height: auto;
-  object-fit: contain;
-  opacity: 0.92;
-  animation: glide-in 2.4s ease-out 0.3s both;
-  z-index: 0;
+  height: 150px;
+  z-index: 2;
+  pointer-events: none;
 }
 
-@keyframes glide-in {
-  from {
-    transform: translate(40px, -24px) scale(0.9);
-    opacity: 0;
-  }
-  to {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.85;
+@media (max-width: 640px) {
+  .peacockWrap {
+    width: 90px;
+    height: 90px;
+    right: 0;
+    top: 4px;
   }
 }
 
