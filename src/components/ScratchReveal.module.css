@@ -18,7 +18,7 @@
   justify-content: center;
   text-align: center;
   padding: var(--space-4);
-  background: linear-gradient(160deg, var(--color-ivory-100), var(--color-cream-300));
+  background: var(--color-parchment);
 }
 
 .dateBlock {
@@ -38,18 +38,37 @@
 
 .revealPeacock {
   position: absolute;
-  bottom: 4%;
-  width: 56px;
-  height: 56px;
-  opacity: 0.5;
+  bottom: 0;
+  width: 42%;
+  height: auto;
+  opacity: 0.9;
+  pointer-events: none;
 }
 
 .revealPeacock.left {
-  left: 4%;
+  left: 0;
 }
 
 .revealPeacock.right {
-  right: 4%;
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.topOrnament {
+  position: absolute;
+  top: 0;
+  width: 38%;
+  height: auto;
+  opacity: 0.85;
+  pointer-events: none;
+}
+
+.topOrnament.left {
+  left: 0;
+}
+
+.topOrnament.right {
+  right: 0;
   transform: scaleX(-1);
 }
 

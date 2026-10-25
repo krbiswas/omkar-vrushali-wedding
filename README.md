@@ -58,10 +58,34 @@ src/
   utils/          asset() (base-path-safe public asset URLs), gsapSetup (GSAP/ScrollTrigger init)
   styles/         Design tokens + shared section styles
 public/
-  images/                 Couple photos, venue photo
-  images/gallery/         Gallery + photo-story photos (1.jpg, 2.jpg, ...)
-  audio/                  Background music file (optional)
+  images/couple/   The five real couple photographs + manifest.json (see below)
+  images/decor/    Cropped/feathered decorative artwork (see "Decorative artwork" below)
+  audio/           Background music file (optional)
 ```
+
+## Decorative artwork
+
+The ornate borders, mandalas, garlands, lamps and peacocks are **cropped, feathered pieces of the
+two commissioned reference illustrations** (not flat icon-style SVG) — generated once with a
+Python/Pillow script and committed as static assets in `public/images/decor/`:
+
+| File | Used in |
+|---|---|
+| `wide-left-frame.webp`, `wide-right-frame.webp` | `DecorativeSideBorder` — fixed side columns on desktop (≥1180px), with slow scroll-linked parallax |
+| `wide-flying-peacock.webp` | `HeroSection` — one-time glide-in entrance, upper right |
+| `portrait-top-left.webp`, `portrait-top-right.webp` | `IntroCover` + `ScratchReveal` — lamp/garland corners, flanking the live Ganesh icon + greeting text |
+| `portrait-bottom-left.webp`, `portrait-bottom-right.webp` | `IntroCover` + `ScratchReveal` — peacock/lotus corners |
+| `portrait-left-strip.webp`, `portrait-right-strip.webp` | `IntroCover` — floral vertical borders |
+
+Each crop deliberately excludes the source image's own baked-in text (names, date, greeting,
+message) — those areas are cut out or cropped away so **all wedding text stays live, accessible
+HTML**, per the original design brief. Edges facing the card's center are alpha-feathered so they
+blend into the card's parchment background (`--color-parchment`) instead of showing a hard seam.
+
+To regenerate or add new crops: the source PNGs aren't committed to the repo (they're design
+inputs, not site assets — keeping them out of `public/` keeps them off the live, public site), but
+the crop script lives in the session history; re-run a similar Pillow crop/feather pass against the
+two reference PNGs with the regions documented above.
 
 ## Updating wedding content
 

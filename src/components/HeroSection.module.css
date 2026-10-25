@@ -15,11 +15,12 @@
 
 .flyingPeacock {
   position: absolute;
-  top: 4%;
-  right: 6%;
-  width: 110px;
-  height: 80px;
-  opacity: 0.85;
+  top: 2%;
+  right: 4%;
+  width: 150px;
+  height: auto;
+  object-fit: contain;
+  opacity: 0.92;
   animation: glide-in 2.4s ease-out 0.3s both;
   z-index: 0;
 }

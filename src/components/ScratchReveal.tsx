@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { wedding, messages, couple } from "../data/wedding";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { MandalaMotif } from "./MandalaMotif";
-import { PeacockMotif } from "./Motifs";
+import { asset } from "../utils/asset";
 import styles from "./ScratchReveal.module.css";
 
 const REVEAL_THRESHOLD = 0.5;
@@ -364,6 +364,8 @@ export function ScratchReveal() {
         transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
         style={{ transformOrigin: "50% 45%" }}
       >
+        <img className={`${styles.topOrnament} ${styles.left}`} src={asset("/images/decor/portrait-top-left.webp")} alt="" aria-hidden="true" />
+        <img className={`${styles.topOrnament} ${styles.right}`} src={asset("/images/decor/portrait-top-right.webp")} alt="" aria-hidden="true" />
         <p className={`marathi ${styles.shubhVivah}`}>शुभविवाह</p>
         <p className={styles.coupleNames}>
           {couple.groom.name} &amp; {couple.bride.name}
@@ -373,8 +375,8 @@ export function ScratchReveal() {
           <p className={`marathi ${styles.dateLabel}`}>{marathiDate}</p>
         </div>
         <p className={`marathi ${styles.message}`}>{messages.scratchRevealMessage}</p>
-        <PeacockMotif className={`${styles.revealPeacock} ${styles.left}`} />
-        <PeacockMotif className={`${styles.revealPeacock} ${styles.right}`} />
+        <img className={`${styles.revealPeacock} ${styles.left}`} src={asset("/images/decor/portrait-bottom-left.webp")} alt="" aria-hidden="true" />
+        <img className={`${styles.revealPeacock} ${styles.right}`} src={asset("/images/decor/portrait-bottom-right.webp")} alt="" aria-hidden="true" />
       </motion.div>
 
       {!revealed && (

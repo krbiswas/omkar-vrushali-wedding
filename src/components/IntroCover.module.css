@@ -5,8 +5,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 50% 30%, var(--color-maroon-700), var(--color-maroon-900) 75%);
-  color: var(--color-ivory-100);
+  background: radial-gradient(circle at 50% 30%, var(--color-parchment), var(--color-ivory-100) 75%);
+  color: var(--color-ink-900);
   text-align: center;
   padding: var(--space-4);
   cursor: pointer;
@@ -14,119 +14,138 @@
 
 .frame {
   position: relative;
-  width: min(92vw, 420px);
-  padding: var(--space-6) var(--space-4);
-  border: 1.5px solid var(--color-gold-500);
+  width: min(94vw, 460px);
+  aspect-ratio: 2 / 3;
+  padding: var(--space-6) var(--space-5);
+  border: 2px solid var(--color-gold-500);
   border-radius: var(--radius-md);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-3);
+  justify-content: center;
+  overflow: hidden;
+  background: var(--color-parchment);
+  box-shadow: var(--shadow-gold);
 }
 
-.frame::before,
-.frame::after {
+.frame::before {
   content: "";
   position: absolute;
-  inset: 8px;
+  inset: 10px;
   border: 1px solid var(--color-gold-300);
   border-radius: calc(var(--radius-md) - 6px);
-  opacity: 0.5;
+  opacity: 0.6;
   pointer-events: none;
+  z-index: 2;
+}
+
+.ornament {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  object-fit: cover;
+}
+
+.topLeft,
+.topRight {
+  top: 0;
+  width: 42%;
+  height: 24%;
+}
+
+.topLeft {
+  left: 0;
+}
+
+.topRight {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.bottomLeft,
+.bottomRight {
+  bottom: 0;
+  width: 44%;
+  height: 26%;
+}
+
+.bottomLeft {
+  left: 0;
+}
+
+.bottomRight {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.sideStrip {
+  position: absolute;
+  top: 28%;
+  bottom: 30%;
+  width: 12%;
+  height: auto;
+  z-index: 0;
+  pointer-events: none;
+  object-fit: cover;
+}
+
+.sideStrip.left {
+  left: 0;
+}
+
+.sideStrip.right {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 0 var(--space-3);
 }
 
 .blessing {
-  font-size: clamp(1.1rem, 4vw, 1.5rem);
-  color: var(--color-gold-300);
+  font-size: clamp(0.85rem, 3vw, 1.05rem);
+  color: var(--accent);
   letter-spacing: 0.04em;
 }
 
 .names {
   font-family: var(--font-display);
-  font-size: clamp(2.2rem, 9vw, 3.2rem);
+  font-size: clamp(1.5rem, 6vw, 2.1rem);
   line-height: 1.15;
-  color: var(--color-ivory-100);
+  color: var(--accent-strong);
 }
 
 .amp {
-  color: var(--color-saffron-300);
+  color: var(--color-saffron-500);
   display: block;
   font-size: 0.6em;
-  margin: 0.1em 0;
+  margin: 0.05em 0;
 }
 
 .subtitle {
-  font-size: clamp(0.95rem, 3vw, 1.1rem);
-  opacity: 0.85;
-  letter-spacing: 0.08em;
+  font-size: clamp(0.7rem, 2.1vw, 0.85rem);
+  opacity: 0.8;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: var(--text-muted);
 }
 
 .instruction {
-  margin-top: var(--space-3);
-  font-size: 0.9rem;
+  margin-top: var(--space-2);
+  font-size: 0.75rem;
   opacity: 0.75;
+  color: var(--text-muted);
 }
 
 .motif {
-  width: 72px;
-  height: 72px;
-}
-
-.garland {
-  width: 100%;
-  height: 32px;
-  margin-bottom: calc(-1 * var(--space-2));
-}
-
-.cornerPeacock {
-  position: absolute;
-  bottom: 6px;
-  width: 44px;
-  height: 44px;
-  opacity: 0.55;
-}
-
-.cornerPeacock.left {
-  left: 6px;
-}
-
-.cornerPeacock.right {
-  right: 6px;
-  transform: scaleX(-1);
-}
-
-.hangingLamp {
-  position: absolute;
-  top: 36px;
-  width: 26px;
+  width: 36px;
   height: 36px;
-  opacity: 0.7;
-  animation: lamp-sway 4.5s ease-in-out infinite;
-  transform-origin: top center;
-}
-
-.hangingLamp.left {
-  left: 18px;
-}
-
-.hangingLamp.right {
-  right: 18px;
-}
-
-@keyframes lamp-sway {
-  0%, 100% {
-    transform: rotate(-3deg);
-  }
-  50% {
-    transform: rotate(3deg);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hangingLamp {
-    animation: none;
-  }
 }
 
 .pulse {
@@ -138,15 +157,8 @@
   50% { transform: scale(1.06); opacity: 1; }
 }
 
-.skip {
-  position: absolute;
-  bottom: var(--space-4);
-  right: var(--space-4);
-  background: transparent;
-  border: 1px solid var(--color-gold-500);
-  color: var(--color-ivory-100);
-  padding: 0.4rem 0.9rem;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  letter-spacing: 0.04em;
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    animation: none;
+  }
 }
