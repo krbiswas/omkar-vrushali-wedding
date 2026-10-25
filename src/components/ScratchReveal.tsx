@@ -404,12 +404,17 @@ export function ScratchReveal({ onReveal }: { onReveal?: () => void }) {
 
         {/* Content */}
         <div className={styles.revealContent}>
-          <svg className={styles.revealGanesh} viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="20" cy="18" r="10" fill="none" stroke="var(--color-gold-500)" strokeWidth="1" opacity="0.6" />
-            <ellipse cx="20" cy="17" rx="5.5" ry="6" fill="var(--color-saffron-500)" opacity="0.8" />
-            <circle cx="18" cy="16" r="0.8" fill="var(--color-maroon-900)" />
-            <circle cx="22" cy="16" r="0.8" fill="var(--color-maroon-900)" />
-            <path d="M20 17 Q20.5 19 22 21" fill="var(--color-saffron-500)" stroke="var(--color-saffron-500)" strokeWidth="0.5" />
+          <svg className={styles.revealSwastik} viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20 8 L20 32" stroke="var(--color-saffron-500)" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M8 20 L32 20" stroke="var(--color-saffron-500)" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M20 8 L27 8" stroke="var(--color-saffron-500)" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M32 20 L32 27" stroke="var(--color-saffron-500)" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M20 32 L13 32" stroke="var(--color-saffron-500)" strokeWidth="2.5" strokeLinecap="round" />
+            <path d="M8 20 L8 13" stroke="var(--color-saffron-500)" strokeWidth="2.5" strokeLinecap="round" />
+            <circle cx="14" cy="14" r="1.5" fill="var(--color-maroon-500)" opacity="0.6" />
+            <circle cx="26" cy="14" r="1.5" fill="var(--color-maroon-500)" opacity="0.6" />
+            <circle cx="26" cy="26" r="1.5" fill="var(--color-maroon-500)" opacity="0.6" />
+            <circle cx="14" cy="26" r="1.5" fill="var(--color-maroon-500)" opacity="0.6" />
           </svg>
 
           <p className={`marathi ${styles.shubhVivah}`}>शुभविवाह</p>

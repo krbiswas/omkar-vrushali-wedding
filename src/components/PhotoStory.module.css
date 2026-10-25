@@ -80,6 +80,19 @@
   z-index: 2;
 }
 
+.finalCaptionMarathi {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: var(--font-devanagari);
+  color: var(--color-maroon-700);
+  font-size: 0.95rem;
+  z-index: 2;
+  opacity: 0.85;
+}
+
 /* Reduced-motion / static fallback layout */
 .staticWrap {
   padding: var(--space-7) var(--space-4);

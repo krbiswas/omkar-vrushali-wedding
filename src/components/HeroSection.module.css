@@ -4,32 +4,13 @@
   overflow: hidden;
 }
 
-.ganesh {
-  width: 44px;
-  height: 44px;
+.swastik {
+  width: 52px;
+  height: 52px;
   margin: 0 auto var(--space-2);
   display: block;
   position: relative;
   z-index: 1;
-}
-
-.peacockWrap {
-  position: absolute;
-  top: 0;
-  right: 2%;
-  width: 150px;
-  height: 150px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-@media (max-width: 640px) {
-  .peacockWrap {
-    width: 90px;
-    height: 90px;
-    right: 0;
-    top: 4px;
-  }
 }
 
 .names {

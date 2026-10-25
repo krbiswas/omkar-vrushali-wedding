@@ -68,6 +68,7 @@ export function PhotoStory() {
             {couple.groom.name} &amp; {couple.bride.name}
           </h2>
           <p className={section.body}>{messages.welcomeMessage}</p>
+          <p className={`marathi ${section.body}`}>{messages.welcomeMessageMarathi}</p>
           {couple.coupleStory && <p className={section.body}>{couple.coupleStory}</p>}
         </Reveal>
         <div className={styles.staticPhotos}>
@@ -104,6 +105,9 @@ export function PhotoStory() {
 
         <p className={`marathi ${styles.finalCaption}`} ref={captionRef}>
           {messages.welcomeMessage}
+        </p>
+        <p className={`marathi ${styles.finalCaptionMarathi}`}>
+          {messages.welcomeMessageMarathi}
         </p>
       </div>
     </section>

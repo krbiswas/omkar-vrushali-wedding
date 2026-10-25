@@ -92,6 +92,27 @@ export function GaneshMotif({ className }: { className?: string }) {
   );
 }
 
+export function SwastikMotif({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="40" cy="40" r="38" stroke="var(--color-gold-500)" strokeWidth="1" opacity="0.3" />
+      {/* Swastik arms */}
+      <path d="M40 14 L40 66" stroke="var(--color-saffron-500)" strokeWidth="4" strokeLinecap="round" />
+      <path d="M14 40 L66 40" stroke="var(--color-saffron-500)" strokeWidth="4" strokeLinecap="round" />
+      {/* Clockwise hooks */}
+      <path d="M40 14 L54 14" stroke="var(--color-saffron-500)" strokeWidth="4" strokeLinecap="round" />
+      <path d="M66 40 L66 54" stroke="var(--color-saffron-500)" strokeWidth="4" strokeLinecap="round" />
+      <path d="M40 66 L26 66" stroke="var(--color-saffron-500)" strokeWidth="4" strokeLinecap="round" />
+      <path d="M14 40 L14 26" stroke="var(--color-saffron-500)" strokeWidth="4" strokeLinecap="round" />
+      {/* Corner dots */}
+      <circle cx="27" cy="27" r="3" fill="var(--color-maroon-500)" opacity="0.7" />
+      <circle cx="53" cy="27" r="3" fill="var(--color-maroon-500)" opacity="0.7" />
+      <circle cx="53" cy="53" r="3" fill="var(--color-maroon-500)" opacity="0.7" />
+      <circle cx="27" cy="53" r="3" fill="var(--color-maroon-500)" opacity="0.7" />
+    </svg>
+  );
+}
+
 export function GarlandStrip({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 400 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

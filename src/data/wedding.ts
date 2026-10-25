@@ -150,6 +150,8 @@ export const messages = {
   scratchRevealMessage: "आपल्या उपस्थितीने आमचा आनंद द्विगुणित होईल",
   welcomeMessage:
     "With the blessings of our families, we joyfully invite you to celebrate our wedding.",
+  welcomeMessageMarathi:
+    "कुटुंबियांच्या आशीर्वादाने, आम्ही आपणास आमच्या विवाह सोहळ्यास सप्रेम निमंत्रित करतो.",
   mandalaEyebrow: "शुभ मंगल सावधान",
   mandalaCaption: "A union blessed, a journey begun",
   landscapeCaption: "Koregaon, with love",

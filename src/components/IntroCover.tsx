@@ -8,20 +8,19 @@ interface IntroCoverProps {
   onOpen: () => void;
 }
 
-function GaneshIcon({ className }: { className?: string }) {
+function SwastikIcon({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <circle cx="32" cy="30" r="14" fill="none" stroke="var(--color-gold-500)" strokeWidth="1.5" />
-      <ellipse cx="32" cy="28" rx="8" ry="9" fill="var(--color-saffron-500)" opacity="0.9" />
-      <ellipse cx="28" cy="26" rx="2.5" ry="3" fill="var(--color-gold-500)" opacity="0.7" />
-      <ellipse cx="36" cy="26" rx="2.5" ry="3" fill="var(--color-gold-500)" opacity="0.7" />
-      <circle cx="29" cy="25" r="1" fill="var(--color-maroon-900)" />
-      <circle cx="35" cy="25" r="1" fill="var(--color-maroon-900)" />
-      <path d="M32 28 Q33 32 36 35 Q33 34 32 32" fill="var(--color-saffron-500)" />
-      <path d="M26 22 Q22 16 18 18" stroke="var(--color-gold-500)" strokeWidth="1.2" fill="none" strokeLinecap="round" />
-      <path d="M38 22 Q42 16 46 18" stroke="var(--color-gold-500)" strokeWidth="1.2" fill="none" strokeLinecap="round" />
-      <circle cx="32" cy="44" r="4" fill="var(--color-gold-500)" opacity="0.3" />
-      <circle cx="32" cy="44" r="2" fill="var(--color-gold-500)" opacity="0.6" />
+      <path d="M32 12 L32 52" stroke="var(--color-saffron-500)" strokeWidth="3.5" strokeLinecap="round" />
+      <path d="M12 32 L52 32" stroke="var(--color-saffron-500)" strokeWidth="3.5" strokeLinecap="round" />
+      <path d="M32 12 L43 12" stroke="var(--color-saffron-500)" strokeWidth="3.5" strokeLinecap="round" />
+      <path d="M52 32 L52 43" stroke="var(--color-saffron-500)" strokeWidth="3.5" strokeLinecap="round" />
+      <path d="M32 52 L21 52" stroke="var(--color-saffron-500)" strokeWidth="3.5" strokeLinecap="round" />
+      <path d="M12 32 L12 21" stroke="var(--color-saffron-500)" strokeWidth="3.5" strokeLinecap="round" />
+      <circle cx="22" cy="22" r="2.5" fill="var(--color-maroon-500)" opacity="0.6" />
+      <circle cx="42" cy="22" r="2.5" fill="var(--color-maroon-500)" opacity="0.6" />
+      <circle cx="42" cy="42" r="2.5" fill="var(--color-maroon-500)" opacity="0.6" />
+      <circle cx="22" cy="42" r="2.5" fill="var(--color-maroon-500)" opacity="0.6" />
     </svg>
   );
 }
@@ -144,7 +143,7 @@ export function IntroCover({ open, onOpen }: IntroCoverProps) {
 
             <div className={styles.innerBorder}>
               <div className={styles.content}>
-                <GaneshIcon className={styles.ganesh} />
+                <SwastikIcon className={styles.swastik} />
 
                 <p className={`marathi ${styles.blessing}`}>
                   {messages.openingBlessing}
