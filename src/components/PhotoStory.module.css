@@ -1,125 +1,61 @@
-.track {
-  position: relative;
-  height: 320vh;
-}
-
-.stage {
-  position: relative;
-  height: 100vh;
-  max-width: 100vw;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(180deg, var(--color-ivory-100), var(--color-ivory-200));
-}
-
-.photoA,
-.photoB,
-.photoC {
-  position: absolute;
-  width: min(42vw, 280px);
-  aspect-ratio: 3 / 4;
-  will-change: transform, opacity;
-}
-
-.photoA {
-  left: 8%;
-  top: 20%;
-}
-
-.photoB {
-  right: 8%;
-  top: 30%;
-}
-
-.photoC {
-  left: 50%;
-  top: 50%;
-  width: min(60vw, 420px);
-  transform: translate(-50%, -50%);
-}
-
-.textBlock {
-  position: relative;
-  z-index: 2;
-  text-align: center;
-  max-width: 34ch;
-  padding: 0 var(--space-4);
-  pointer-events: none;
-}
-
-.eyebrow {
-  font-family: var(--font-devanagari);
-  color: var(--color-saffron-500);
-  font-size: 1.1rem;
-  margin-bottom: var(--space-2);
-}
-
-.names {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 6vw, 3rem);
-  color: var(--accent-strong);
-}
-
-.story {
-  margin-top: var(--space-3);
-  color: var(--text-muted);
-  line-height: 1.7;
-}
-
-.finalCaption {
-  position: absolute;
-  bottom: 10%;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-family: var(--font-devanagari);
-  color: var(--accent);
-  font-size: 1.1rem;
-  z-index: 2;
-}
-
-.finalCaptionMarathi {
-  position: absolute;
-  bottom: 5%;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-family: var(--font-devanagari);
-  color: var(--color-maroon-700);
-  font-size: 0.95rem;
-  z-index: 2;
-  opacity: 0.85;
-}
-
-/* Reduced-motion / static fallback layout */
-.staticWrap {
-  padding: var(--space-7) var(--space-4);
+.wrap {
+  padding: var(--space-6) var(--space-4);
   max-width: var(--max-width);
   margin: 0 auto;
   text-align: center;
 }
 
-.staticPhotos {
+/* ── Photo gallery ── */
+.gallery {
   display: flex;
-  gap: var(--space-4);
   justify-content: center;
+  gap: var(--space-4);
+  margin: var(--space-5) 0;
   flex-wrap: wrap;
-  margin-top: var(--space-5);
 }
 
-.staticPhoto {
-  width: 220px;
+.photoSlot {
+  width: min(42vw, 260px);
   aspect-ratio: 3 / 4;
+  flex-shrink: 0;
 }
 
+.photo {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── Captions ── */
+.caption {
+  font-family: var(--font-display);
+  color: var(--accent);
+  font-size: clamp(1rem, 3vw, 1.2rem);
+  max-width: 36ch;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.captionMarathi {
+  font-family: var(--font-devanagari);
+  color: var(--color-maroon-700);
+  font-size: clamp(0.9rem, 2.8vw, 1.05rem);
+  max-width: 36ch;
+  margin: var(--space-2) auto 0;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
+/* ── Mobile ── */
 @media (max-width: 640px) {
-  .photoA,
-  .photoB {
-    width: 38vw;
+  .gallery {
+    gap: var(--space-3);
   }
-  .photoC {
-    width: 70vw;
+
+  .photoSlot {
+    width: min(70vw, 280px);
+  }
+
+  .photoSlot:nth-child(3) {
+    width: min(55vw, 220px);
   }
 }
