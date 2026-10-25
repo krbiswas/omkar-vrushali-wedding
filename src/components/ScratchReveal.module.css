@@ -18,88 +18,151 @@
   justify-content: center;
   text-align: center;
   padding: var(--space-4);
-  background: var(--color-parchment);
+  background: linear-gradient(
+    180deg,
+    var(--color-parchment) 0%,
+    var(--color-ivory-200) 50%,
+    var(--color-parchment) 100%
+  );
 }
 
-.dateBlock {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.dateHalo {
+/* ── Floral corner decorations ── */
+.floralDecor {
   position: absolute;
-  width: 220%;
-  height: 220%;
-  opacity: 0.12;
+  width: 70px;
+  height: 70px;
+  z-index: 1;
   pointer-events: none;
-}
-
-.revealPeacock {
-  position: absolute;
-  bottom: 0;
-  width: 42%;
-  height: auto;
   opacity: 0.9;
-  pointer-events: none;
 }
 
-.revealPeacock.left {
-  left: 0;
+.topLeft {
+  top: 4px;
+  left: 4px;
 }
 
-.revealPeacock.right {
-  right: 0;
-  transform: scaleX(-1);
+.topRight {
+  top: 4px;
+  right: 4px;
 }
 
-.topOrnament {
+.bottomLeft {
+  bottom: 4px;
+  left: 4px;
+}
+
+.bottomRight {
+  bottom: 4px;
+  right: 4px;
+}
+
+/* ── Scattered petals on the card ── */
+.scatteredPetal {
   position: absolute;
-  top: 0;
-  width: 38%;
-  height: auto;
-  opacity: 0.85;
   pointer-events: none;
+  z-index: 0;
 }
 
-.topOrnament.left {
-  left: 0;
+/* ── Gold inner border ── */
+.innerBorder {
+  position: absolute;
+  inset: 12px;
+  border: 1.5px solid var(--color-gold-300);
+  border-radius: calc(var(--radius-lg) - 6px);
+  pointer-events: none;
+  z-index: 0;
 }
 
-.topOrnament.right {
-  right: 0;
-  transform: scaleX(-1);
+.innerBorder::before {
+  content: "";
+  position: absolute;
+  inset: 5px;
+  border: 1px solid var(--color-gold-300);
+  border-radius: calc(var(--radius-lg) - 10px);
+  opacity: 0.3;
 }
 
-.shubhVivah {
-  font-size: clamp(1.6rem, 6vw, 2.2rem);
-  color: var(--color-maroon-900);
-  font-weight: 600;
+/* ── Reveal content ── */
+.revealContent {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+}
+
+.revealGanesh {
+  width: 36px;
+  height: 36px;
   margin-bottom: var(--space-1);
 }
 
+.shubhVivah {
+  font-size: clamp(1.5rem, 5.5vw, 2rem);
+  color: var(--color-maroon-900);
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+  letter-spacing: 0.06em;
+}
+
+.goldLine {
+  width: 50px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold-500) 20%,
+    var(--color-gold-500) 80%,
+    transparent
+  );
+  margin: var(--space-1) 0;
+  opacity: 0.6;
+}
+
 .coupleNames {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: var(--space-1) 0;
+}
+
+.groomName,
+.brideName {
   font-family: var(--font-display);
-  font-size: clamp(1.3rem, 4.5vw, 1.7rem);
-  color: var(--accent);
+  font-size: clamp(1.6rem, 7vw, 2.2rem);
+  font-weight: 500;
+  color: var(--color-maroon-900);
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.ampSymbol {
+  font-family: var(--font-display);
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
+  color: var(--color-saffron-500);
+  font-style: italic;
+  line-height: 1.4;
 }
 
 .dateLabel {
-  font-size: clamp(1.4rem, 5.5vw, 2rem);
+  font-size: clamp(1.1rem, 4.5vw, 1.5rem);
   color: var(--color-saffron-500);
   font-weight: 600;
-  margin: var(--space-2) 0;
+  margin: var(--space-1) 0;
 }
 
 .message {
-  margin-top: var(--space-3);
+  margin-top: var(--space-2);
   font-family: var(--font-devanagari);
-  font-size: clamp(1rem, 3.5vw, 1.25rem);
+  font-size: clamp(0.85rem, 3vw, 1.05rem);
   color: var(--color-ink-700);
-  max-width: 28ch;
+  max-width: 26ch;
+  line-height: 1.5;
 }
 
+/* ── Canvas overlay ── */
 .canvas {
   position: absolute;
   inset: 0;
@@ -118,34 +181,7 @@
   z-index: 1;
 }
 
-.hint {
-  position: absolute;
-  bottom: var(--space-3);
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 0.85rem;
-  color: var(--color-ivory-100);
-  background: rgba(74, 13, 26, 0.55);
-  padding: 0.35rem 0.9rem;
-  border-radius: 999px;
-  pointer-events: none;
-}
-
-.revealButton {
-  margin-top: var(--space-3);
-  background: var(--color-maroon-700);
-  color: var(--color-ivory-100);
-  border: 1px solid var(--color-gold-500);
-  padding: 0.6rem 1.4rem;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  letter-spacing: 0.03em;
-}
-
-.revealButton:hover {
-  background: var(--color-maroon-900);
-}
-
+/* ── Progress bar & reveal button ── */
 .progressTrack {
   position: absolute;
   top: var(--space-3);
@@ -162,4 +198,35 @@
   height: 100%;
   background: var(--color-gold-500);
   transition: width 0.15s ease-out;
+}
+
+.revealButton {
+  position: absolute;
+  bottom: var(--space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-maroon-700);
+  color: var(--color-ivory-100);
+  border: 1px solid var(--color-gold-500);
+  padding: 0.5rem 1.2rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.revealButton:hover {
+  background: var(--color-maroon-900);
+}
+
+/* ── Responsive ── */
+@media (max-width: 380px) {
+  .floralDecor {
+    width: 50px;
+    height: 50px;
+  }
+  .innerBorder {
+    inset: 8px;
+  }
 }

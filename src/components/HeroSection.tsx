@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { ScratchReveal } from "./ScratchReveal";
+import { RevealPetalShower } from "./RevealPetalShower";
 import { Reveal } from "./Reveal";
 import { FloatingPetals } from "./FloatingPetals";
 import { AnimatedPeacock } from "./AnimatedPeacock";
@@ -10,6 +12,7 @@ import styles from "./HeroSection.module.css";
 
 export function HeroSection() {
   const reducedMotion = usePrefersReducedMotion();
+  const [scratchRevealed, setScratchRevealed] = useState(false);
 
   return (
     <section id="home" className={`${section.section} ${styles.hero}`}>
@@ -26,8 +29,9 @@ export function HeroSection() {
         <p className={styles.tagline}>{messages.invitationTitle} · {messages.invitationSubtitle}</p>
       </Reveal>
       <Reveal delay={0.15} className={styles.scratchWrap}>
-        <ScratchReveal />
+        <ScratchReveal onReveal={() => setScratchRevealed(true)} />
       </Reveal>
+      {!reducedMotion && <RevealPetalShower active={scratchRevealed} />}
     </section>
   );
 }

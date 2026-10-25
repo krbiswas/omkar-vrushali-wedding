@@ -2,8 +2,6 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { wedding, messages, couple } from "../data/wedding";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
-import { MandalaMotif } from "./MandalaMotif";
-import { asset } from "../utils/asset";
 import styles from "./ScratchReveal.module.css";
 
 const REVEAL_THRESHOLD = 0.5;
@@ -43,41 +41,91 @@ function drawStar(ctx: CanvasRenderingContext2D, size: number, rotation: number)
 }
 
 const MARATHI_MONTHS = [
-  "जानेवारी",
-  "फेब्रुवारी",
-  "मार्च",
-  "एप्रिल",
-  "मे",
-  "जून",
-  "जुलै",
-  "ऑगस्ट",
-  "सप्टेंबर",
-  "ऑक्टोबर",
-  "नोव्हेंबर",
-  "डिसेंबर",
+  "जानेवारी", "फेब्रुवारी", "मार्च", "एप्रिल", "मे", "जून",
+  "जुलै", "ऑगस्ट", "सप्टेंबर", "ऑक्टोबर", "नोव्हेंबर", "डिसेंबर",
 ];
 
 const DEVANAGARI_DIGITS = ["०", "१", "२", "३", "४", "५", "६", "७", "८", "९"];
 
 function toDevanagariNumeral(n: number): string {
-  return String(n)
-    .split("")
-    .map((d) => DEVANAGARI_DIGITS[Number(d)] ?? d)
-    .join("");
+  return String(n).split("").map((d) => DEVANAGARI_DIGITS[Number(d)] ?? d).join("");
 }
 
 function formatDate(iso: string) {
   const [y, m, d] = iso.split("-").map(Number);
   const date = new Date(Date.UTC(y, m - 1, d));
   const day = date.getUTCDate();
-  const month = date.toLocaleDateString("en-US", { month: "long", timeZone: "UTC" });
   const year = date.getUTCFullYear();
   const monthMarathi = MARATHI_MONTHS[date.getUTCMonth()];
-  const marathiDate = `${toDevanagariNumeral(day)} ${monthMarathi} ${toDevanagariNumeral(year)}`;
-  return { day, month, year, marathiDate };
+  return { day, year, marathiDate: `${toDevanagariNumeral(day)} ${monthMarathi} ${toDevanagariNumeral(year)}` };
 }
 
-export function ScratchReveal() {
+function FloralDecor({ position }: { position: "topLeft" | "topRight" | "bottomLeft" | "bottomRight" }) {
+  const isRight = position.includes("Right");
+  const isBottom = position.includes("bottom");
+  return (
+    <svg
+      className={`${styles.floralDecor} ${styles[position]}`}
+      viewBox="0 0 80 80"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      style={{ transform: `scale(${isRight ? -1 : 1}, ${isBottom ? -1 : 1})` }}
+    >
+      <path d="M5 75 Q4 40 20 20 Q10 40 12 65 Z" fill="var(--color-green-600)" opacity="0.6" />
+      <path d="M0 80 Q0 30 30 8 Q12 35 10 70 Z" fill="var(--color-green-600)" opacity="0.4" />
+      {[0, 51, 102, 153, 204, 255, 306].map((angle, i) => (
+        <ellipse key={i} cx="30" cy="20" rx="4" ry="10" fill="var(--color-maroon-500)" opacity={0.65} transform={`rotate(${angle} 30 20)`} />
+      ))}
+      <circle cx="30" cy="20" r="6" fill="var(--color-saffron-500)" />
+      <circle cx="30" cy="20" r="3" fill="var(--color-gold-500)" />
+      <circle cx="12" cy="42" r="4" fill="var(--color-saffron-500)" opacity="0.5" />
+      <circle cx="12" cy="42" r="2" fill="var(--color-gold-300)" />
+      <circle cx="42" cy="10" r="3" fill="var(--color-maroon-500)" opacity="0.4" />
+    </svg>
+  );
+}
+
+function SmallPetals() {
+  const petals = Array.from({ length: 6 }, (_, i) => ({
+    id: i,
+    left: 10 + ((i * 29) % 80),
+    top: 15 + ((i * 37) % 70),
+    size: 6 + (i % 3) * 2,
+    rotation: (i * 67) % 360,
+    color: i % 3 === 0 ? "#b3273a" : i % 3 === 1 ? "#d94f5c" : "#e8762c",
+    opacity: 0.15 + (i % 4) * 0.08,
+  }));
+
+  return (
+    <>
+      {petals.map((p) => (
+        <svg
+          key={p.id}
+          className={styles.scatteredPetal}
+          style={{
+            left: `${p.left}%`,
+            top: `${p.top}%`,
+            width: p.size,
+            height: p.size,
+            transform: `rotate(${p.rotation}deg)`,
+            opacity: p.opacity,
+          }}
+          viewBox="0 0 16 16"
+          xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+        >
+          <path d="M8 0 C13 3 14 9 8 16 C2 9 3 3 8 0 Z" fill={p.color} />
+        </svg>
+      ))}
+    </>
+  );
+}
+
+export interface ScratchRevealRef {
+  revealed: boolean;
+}
+
+export function ScratchReveal({ onReveal }: { onReveal?: () => void }) {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const particleCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -91,6 +139,11 @@ export function ScratchReveal() {
   const [progress, setProgress] = useState(0);
   const reducedMotion = usePrefersReducedMotion();
   const { marathiDate } = formatDate(wedding.date);
+
+  const doReveal = useCallback(() => {
+    setRevealed(true);
+    onReveal?.();
+  }, [onReveal]);
 
   const drawCover = useCallback(() => {
     const canvas = canvasRef.current;
@@ -161,16 +214,11 @@ export function ScratchReveal() {
   useEffect(() => {
     drawCover();
     sizeParticleCanvas();
-
-    // Canvas text doesn't wait for webfonts the way DOM text does — redraw
-    // once the Devanagari font has actually finished loading so the cover
-    // label never silently falls back to a font missing those glyphs.
     if (typeof document !== "undefined" && "fonts" in document) {
       document.fonts.ready.then(() => {
         if (!revealed) drawCover();
       });
     }
-
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
     const observer = new ResizeObserver(() => {
@@ -206,10 +254,7 @@ export function ScratchReveal() {
         p.vy += 0.03;
         p.rotation += p.vr;
         const t = p.life / p.maxLife;
-        if (t >= 1) {
-          particles.splice(i, 1);
-          continue;
-        }
+        if (t >= 1) { particles.splice(i, 1); continue; }
         const alpha = t < 0.3 ? t / 0.3 : 1 - (t - 0.3) / 0.7;
         ctx.save();
         ctx.translate(p.x, p.y);
@@ -220,14 +265,12 @@ export function ScratchReveal() {
         drawStar(ctx, p.size, p.rotation);
         ctx.restore();
       }
-
       if (particles.length > 0) {
         particleAnimRef.current = requestAnimationFrame(step);
       } else {
         particleAnimRef.current = null;
       }
     };
-
     if (particleAnimRef.current === null) {
       particleAnimRef.current = requestAnimationFrame(step);
     }
@@ -240,8 +283,7 @@ export function ScratchReveal() {
         const angle = Math.random() * Math.PI * 2;
         const speed = 0.4 + Math.random() * 1.2;
         particlesRef.current.push({
-          x,
-          y,
+          x, y,
           vx: Math.cos(angle) * speed,
           vy: Math.sin(angle) * speed - 0.4,
           size: 2 + Math.random() * 3,
@@ -278,12 +320,8 @@ export function ScratchReveal() {
     ctx.lineCap = "round";
     ctx.lineWidth = BRUSH_RADIUS * 2;
     ctx.beginPath();
-    if (prev) {
-      ctx.moveTo(prev.x, prev.y);
-      ctx.lineTo(x, y);
-    } else {
-      ctx.arc(x, y, BRUSH_RADIUS, 0, Math.PI * 2);
-    }
+    if (prev) { ctx.moveTo(prev.x, prev.y); ctx.lineTo(x, y); }
+    else { ctx.arc(x, y, BRUSH_RADIUS, 0, Math.PI * 2); }
     ctx.stroke();
     ctx.fill();
     lastPointRef.current = { x, y };
@@ -294,27 +332,21 @@ export function ScratchReveal() {
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    const sampleW = 60;
-    const sampleH = 60;
     const data = ctx.getImageData(0, 0, canvas.width, canvas.height);
-    // Downsample by striding for performance.
-    const strideX = Math.max(1, Math.floor(canvas.width / sampleW));
-    const strideY = Math.max(1, Math.floor(canvas.height / sampleH));
+    const strideX = Math.max(1, Math.floor(canvas.width / 60));
+    const strideY = Math.max(1, Math.floor(canvas.height / 60));
     let total = 0;
     let transparent = 0;
     for (let yy = 0; yy < canvas.height; yy += strideY) {
       for (let xx = 0; xx < canvas.width; xx += strideX) {
-        const idx = (yy * canvas.width + xx) * 4 + 3;
         total++;
-        if (data.data[idx] < 16) transparent++;
+        if (data.data[(yy * canvas.width + xx) * 4 + 3] < 16) transparent++;
       }
     }
     const pct = total > 0 ? transparent / total : 0;
     setProgress(pct);
-    if (pct >= REVEAL_THRESHOLD) {
-      setRevealed(true);
-    }
-  }, []);
+    if (pct >= REVEAL_THRESHOLD) doReveal();
+  }, [doReveal]);
 
   const handlePointerDown = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (revealed) return;
@@ -332,9 +364,7 @@ export function ScratchReveal() {
     scratchAt(x, y);
     spawnGlitter(x, y);
     sampleCounterRef.current += 1;
-    if (sampleCounterRef.current % 4 === 0) {
-      measureProgress();
-    }
+    if (sampleCounterRef.current % 4 === 0) measureProgress();
   };
 
   const handlePointerUp = () => {
@@ -356,27 +386,48 @@ export function ScratchReveal() {
       <motion.div
         className={styles.revealLayer}
         initial={false}
-        animate={
-          revealed && !reducedMotion
-            ? { scale: 1.08 }
-            : { scale: 1 }
-        }
+        animate={revealed && !reducedMotion ? { scale: 1.05 } : { scale: 1 }}
         transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
         style={{ transformOrigin: "50% 45%" }}
       >
-        <img className={`${styles.topOrnament} ${styles.left}`} src={asset("/images/decor/portrait-top-left.webp")} alt="" aria-hidden="true" />
-        <img className={`${styles.topOrnament} ${styles.right}`} src={asset("/images/decor/portrait-top-right.webp")} alt="" aria-hidden="true" />
-        <p className={`marathi ${styles.shubhVivah}`}>शुभविवाह</p>
-        <p className={styles.coupleNames}>
-          {couple.groom.name} &amp; {couple.bride.name}
-        </p>
-        <div className={styles.dateBlock}>
-          <MandalaMotif className={styles.dateHalo} id="date-halo" />
+        {/* Floral corners */}
+        <FloralDecor position="topLeft" />
+        <FloralDecor position="topRight" />
+        <FloralDecor position="bottomLeft" />
+        <FloralDecor position="bottomRight" />
+
+        {/* Scattered petals on the card */}
+        <SmallPetals />
+
+        {/* Gold inner border */}
+        <div className={styles.innerBorder} />
+
+        {/* Content */}
+        <div className={styles.revealContent}>
+          <svg className={styles.revealGanesh} viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="20" cy="18" r="10" fill="none" stroke="var(--color-gold-500)" strokeWidth="1" opacity="0.6" />
+            <ellipse cx="20" cy="17" rx="5.5" ry="6" fill="var(--color-saffron-500)" opacity="0.8" />
+            <circle cx="18" cy="16" r="0.8" fill="var(--color-maroon-900)" />
+            <circle cx="22" cy="16" r="0.8" fill="var(--color-maroon-900)" />
+            <path d="M20 17 Q20.5 19 22 21" fill="var(--color-saffron-500)" stroke="var(--color-saffron-500)" strokeWidth="0.5" />
+          </svg>
+
+          <p className={`marathi ${styles.shubhVivah}`}>शुभविवाह</p>
+
+          <div className={styles.goldLine} />
+
+          <p className={styles.coupleNames}>
+            <span className={styles.groomName}>{couple.groom.name}</span>
+            <span className={styles.ampSymbol}>&amp;</span>
+            <span className={styles.brideName}>{couple.bride.name}</span>
+          </p>
+
+          <div className={styles.goldLine} />
+
           <p className={`marathi ${styles.dateLabel}`}>{marathiDate}</p>
+
+          <p className={`marathi ${styles.message}`}>{messages.scratchRevealMessage}</p>
         </div>
-        <p className={`marathi ${styles.message}`}>{messages.scratchRevealMessage}</p>
-        <img className={`${styles.revealPeacock} ${styles.left}`} src={asset("/images/decor/portrait-bottom-left.webp")} alt="" aria-hidden="true" />
-        <img className={`${styles.revealPeacock} ${styles.right}`} src={asset("/images/decor/portrait-bottom-right.webp")} alt="" aria-hidden="true" />
       </motion.div>
 
       {!revealed && (
@@ -398,8 +449,7 @@ export function ScratchReveal() {
           <button
             type="button"
             className={styles.revealButton}
-            style={{ position: "absolute", bottom: "var(--space-3)", left: "50%", transform: "translateX(-50%)" }}
-            onClick={() => setRevealed(true)}
+            onClick={() => doReveal()}
           >
             Reveal invitation
           </button>
