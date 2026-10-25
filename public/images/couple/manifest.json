@@ -1,0 +1,50 @@
+{
+  "description": "Asset manifest for the five couple photographs used across the site (photo story, Koregaon banner, closing section). Source originals are full-resolution DSLR portraits (4672x7008); these are web-optimized copies (max 1800px edge, JPEG q82).",
+  "photos": [
+    {
+      "fileName": "omkar-vrushali-river-petals.jpg",
+      "repoPath": "public/images/couple/omkar-vrushali-river-petals.jpg",
+      "width": 1200,
+      "height": 1800,
+      "orientation": "portrait",
+      "bestUse": "Photo story — first entrance (left)",
+      "altText": "Omkar and Vrushali seated by a river as rose petals fall around them"
+    },
+    {
+      "fileName": "omkar-vrushali-temple-arch.jpg",
+      "repoPath": "public/images/couple/omkar-vrushali-temple-arch.jpg",
+      "width": 1200,
+      "height": 1800,
+      "orientation": "portrait",
+      "bestUse": "Photo story — second entrance (right)",
+      "altText": "Omkar and Vrushali standing at a temple archway"
+    },
+    {
+      "fileName": "omkar-vrushali-stone-steps.jpg",
+      "repoPath": "public/images/couple/omkar-vrushali-stone-steps.jpg",
+      "width": 1200,
+      "height": 1800,
+      "orientation": "portrait",
+      "bestUse": "Photo story — third/hero frame",
+      "altText": "Omkar and Vrushali sitting together on old stone steps"
+    },
+    {
+      "fileName": "omkar-vrushali-temple-wall.jpg",
+      "repoPath": "public/images/couple/omkar-vrushali-temple-wall.jpg",
+      "width": 1200,
+      "height": 1800,
+      "orientation": "portrait",
+      "bestUse": "Koregaon banner — dominant image",
+      "altText": "Omkar and Vrushali sitting against a carved temple wall in Koregaon"
+    },
+    {
+      "fileName": "omkar-vrushali-saree-twirl.jpg",
+      "repoPath": "public/images/couple/omkar-vrushali-saree-twirl.jpg",
+      "width": 1200,
+      "height": 1800,
+      "orientation": "portrait",
+      "bestUse": "Closing section — circular inset",
+      "altText": "Vrushali twirling her saree as Omkar smiles nearby"
+    }
+  ]
+}
