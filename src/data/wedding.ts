@@ -61,10 +61,10 @@ export const wedding = {
   ceremonyTimeConfirmed: false,
   timezone: "Asia/Kolkata",
   venue: {
-    name: "Koregaon",
-    fullAddress: null as string | null, // PENDING: full address not yet provided
-    mapUrl: null as string | null, // PENDING: do not fabricate a pin
-    photo: null as string | null, // PENDING
+    name: "Shivratna Mangal Karyalay",
+    fullAddress: "Shivratna Mangal Karyalay, Satara Road Koregaon Road (Via Khed), Koregaon, Maharashtra 415501",
+    mapUrl: "https://share.google/2WEG9dqUAK0wwWG33",
+    photo: null as string | null, // PENDING: a photo of the actual venue, if supplied
     travelInfo: "", // PENDING
     parkingInfo: "", // PENDING
   },
@@ -121,15 +121,15 @@ export const messages = {
   invitationTitle: "लग्न पत्रिका",
   invitationSubtitle: "Wedding Invitation",
   openInstruction: "Tap to open the invitation",
-  scratchInstruction: "Scratch to reveal our wedding date",
+  scratchInstruction: "आमंत्रण उलगडण्यासाठी येथे स्क्रॅच करा",
   scratchRevealMessage: "आपल्या उपस्थितीने आमचा आनंद द्विगुणित होईल",
   welcomeMessage:
     "With the blessings of our families, we joyfully invite you to celebrate our wedding.",
   mandalaEyebrow: "शुभ मंगल सावधान",
   mandalaCaption: "A union blessed, a journey begun",
-  landscapeCaption: "From the hills of Koregaon, with love",
-  eventsEmptyState: "कार्यक्रमाचे तपशील लवकरच कळविले जातील",
-  eventsEmptyStateEnglish: "Function details will be shared soon",
+  landscapeCaption: "Koregaon, with love",
+  eventsEmptyState: "लग्नसोहळ्याचा सविस्तर कार्यक्रम लवकरच कळविण्यात येईल",
+  eventsEmptyStateEnglish: "The full function schedule will be shared soon",
   ceremonyTimeProvisionalNote: "Time shown is a placeholder only — the muhurat is not yet confirmed.",
   closingBlessing: "सहपरिवार विवाह सोहळ्यास अवश्य उपस्थित रहावे",
   closingNote: "Looking forward to celebrating with you",

@@ -1,13 +1,15 @@
 import { useState } from "react";
 import { Share2, Copy, Check } from "lucide-react";
-import { couple, messages, shareConfig, rsvp } from "../data/wedding";
+import { couple, messages, shareConfig, rsvp, gallery } from "../data/wedding";
 import { Reveal } from "./Reveal";
 import { MandalaMotif } from "./MandalaMotif";
+import { PhotoFrame } from "./PhotoFrame";
 import section from "../styles/section.module.css";
 import styles from "./ClosingSection.module.css";
 
 export function ClosingSection() {
   const [copied, setCopied] = useState(false);
+  const closingPhoto = gallery[4];
 
   const shareUrl = typeof window !== "undefined" ? window.location.href : "";
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(`${shareConfig.shareText} ${shareUrl}`)}`;
@@ -27,6 +29,11 @@ export function ClosingSection() {
       <MandalaMotif className={styles.backdrop} id="closing-mandala" />
 
       <Reveal>
+        {closingPhoto && (
+          <div className={styles.closingPhoto}>
+            <PhotoFrame src={closingPhoto.src} alt={closingPhoto.alt} />
+          </div>
+        )}
         <p className={`marathi ${styles.blessing}`}>{messages.closingBlessing}</p>
         <h2 className={section.heading}>
           {couple.groom.name} &amp; {couple.bride.name}

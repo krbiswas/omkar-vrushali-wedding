@@ -31,16 +31,17 @@ npm run preview    # preview the production build locally
 
 ## The visual journey (chapters)
 
-1. **Cover** — `IntroCover` — ceremonial opening, tap to enter.
-2. **Hero / scratch-reveal** — `HeroSection` + `ScratchReveal` — canvas scratch-to-reveal with a glitter trail, reveals the date, zooms in.
-3. **Mandala welcome** — `MandalaWelcome` — an original SVG mandala (`MandalaMotif`) draws itself in as you scroll (rings stroke-drawing, petals blooming), then the couple's names fade in over it.
-4. **Photo story** — `PhotoStory` — a pinned, scroll-scrubbed cinematic sequence (GSAP ScrollTrigger `pin` + `scrub`): photos enter from alternating edges, settle, recede, and hand off to the next, with the couple's names and a message emerging mid-sequence. Falls back to a simple static stacked layout under `prefers-reduced-motion`.
-5. **Gallery** — `PhotoGallery` — the traditional full photo grid with a lightbox.
-6. **Landscape** — `LandscapeScene` — an original layered illustration (Sahyadri-style mountains, a temple silhouette, a peacock, a tree line) with scroll-linked parallax.
-7. **Countdown** — `CountdownSection` / `Countdown` — ornamental panel, live D/H/M/S countdown.
-8. **Functions timeline** — `EventTimeline` — alternating left/right panels connected by a gold spine; shows a Marathi/English placeholder until real functions are confirmed.
-9. **Venue** — `VenueSection` — an illustrated arch frame around the venue name/address.
-10. **Closing** — `ClosingSection` — a static completed mandala backdrop, closing blessing, WhatsApp share + copy-link.
+1. **Cover** — `IntroCover` — ornate maroon-and-gold invitation card: garland strip, an original Ganesh motif, peacock corner accents, "Tap to open."
+2. **Hero / scratch-reveal** — `HeroSection` + `ScratchReveal` — canvas scratch-to-reveal with a glitter trail, reveals "शुभविवाह", the couple's names, and the date in Devanagari, then zooms in.
+3. **Mandala welcome** — `MandalaWelcome` — an understated "शुभ मंगल सावधान" scene (an earlier version used one large mandala centered behind the names — removed per feedback that it felt oversized; small slow-rotating corner mandalas now frame it instead).
+4. **Photo story** — `PhotoStory` — a pinned, scroll-scrubbed cinematic sequence (GSAP ScrollTrigger `pin` + `scrub`) using the first three gallery photos: they enter from alternating edges, settle, recede, and hand off to the next, with the couple's names and a message emerging mid-sequence. Falls back to a simple static stacked layout under `prefers-reduced-motion`. There is no separate gallery grid — all photos live inside this narrative, the Koregaon banner, and the closing section.
+5. **Koregaon banner** — `LandscapeScene` — the 4th gallery photo as the dominant visual (not an illustrated landscape), with a thin decorative tree-line and a small peacock accent, scroll-linked fade/scale reveal.
+6. **Countdown** — `CountdownSection` / `Countdown` — ornamental panel, live D/H/M/S countdown.
+7. **Functions timeline** — `EventTimeline` — alternating left/right panels connected by a gold spine; shows a Marathi/English placeholder until real functions are confirmed.
+8. **Venue** — `VenueSection` — an illustrated arch frame around **Shivratna Mangal Karyalay**, the full Koregaon address, and a working "Get Directions" link.
+9. **Closing** — `ClosingSection` — the 5th gallery photo in a circular frame, a completed mandala backdrop, closing blessing, WhatsApp share + copy-link.
+
+A fixed `DecorativeSideBorder` (brass lamp, flower garland, paisley, peacock) frames both edges of the page on wide desktop viewports (≥1180px) to avoid empty side space; it's hidden below that width so it never causes mobile overflow.
 
 All scroll animation respects `prefers-reduced-motion`: GSAP scrubbing/pinning is skipped entirely and a simpler static/fade layout is shown instead.
 
@@ -49,9 +50,9 @@ All scroll animation respects `prefers-reduced-motion`: GSAP scrubbing/pinning i
 ```
 src/
   components/     Chapter components (IntroCover, ScratchReveal, MandalaWelcome, PhotoStory,
-                   PhotoGallery, LandscapeScene, CountdownSection, EventTimeline, VenueSection,
-                   ClosingSection, Navigation, MusicPlayer) + shared pieces (PhotoFrame, Motifs,
-                   MandalaMotif, Reveal)
+                   LandscapeScene, CountdownSection, EventTimeline, VenueSection, ClosingSection,
+                   Navigation, DecorativeSideBorder, MusicPlayer) + shared pieces (PhotoFrame,
+                   Motifs, MandalaMotif, Reveal)
   data/wedding.ts Central content config — edit THIS file to update the invitation
   hooks/          useCountdown, useInView, usePrefersReducedMotion
   utils/          asset() (base-path-safe public asset URLs), gsapSetup (GSAP/ScrollTrigger init)
@@ -72,14 +73,14 @@ Edit the `couple` and `wedding` objects in `src/data/wedding.ts`.
 - `wedding.date` — ISO date (`YYYY-MM-DD`) for the countdown and scratch-reveal.
 - `wedding.referenceCeremonyTime` / `wedding.ceremonyTimeConfirmed` — the muhurat has **not** been confirmed. `referenceCeremonyTime` is only a placeholder so the countdown has something to count to; the UI always shows a "not yet confirmed" note while `ceremonyTimeConfirmed` is `false`. Once the family confirms the time, update `referenceCeremonyTime` and flip `ceremonyTimeConfirmed` to `true` to remove the disclaimer.
 - `wedding.timezone` — IANA timezone (default `Asia/Kolkata`).
-- `wedding.venue.fullAddress` / `mapUrl` — leave as `null` until the real address/map link is available; the UI shows "to be announced" and disables the directions button automatically.
+- `wedding.venue` — confirmed: **Shivratna Mangal Karyalay**, Satara Road Koregaon Road (Via Khed), Koregaon, Maharashtra 415501. `mapUrl` points to the Google Maps share link that was supplied; update both if the family provides a different one later.
 
-### Couple & gallery photos
-1. Drop image files into `public/images/gallery/` (named `1.jpg`, `2.jpg`, ...).
-2. Reference them in the `gallery` array in `src/data/wedding.ts` — each entry needs `id`, `src`, `alt`, and optional `caption`.
-3. The first three gallery entries are also used as the cinematic **Photo Story** sequence (Chapter 3). The first entry is used as the featured couple photo (`couple.photos.couplePhoto`).
-4. Missing/broken images never show a broken-image icon — every photo slot (`PhotoFrame`) falls back to an illustrated placeholder automatically.
-5. Use web-sized, compressed images — large files will slow down the site.
+### Couple photos — currently pending
+No couple photographs have made it into the repository yet — pasting an image into chat does not give this project (or any Claude Code session) a way to save that image's actual file data to disk. **To add them**, save each file (e.g. right-click → Save Image As in the chat) to `public/images/gallery/` named `1.jpg` … `5.jpg`, then:
+1. Reference them in the `gallery` array in `src/data/wedding.ts` — each entry needs `id`, `src`, `alt`, and optional `caption` (the array already has 5 entries pointing at `1.jpg`–`5.jpg`, so dropping the files in with those exact names requires no code change).
+2. The first three entries drive the cinematic **Photo Story** chapter, the 4th is the Koregaon banner photo, and the 5th appears in the closing section.
+3. Missing/broken images never show a broken-image icon — every photo slot (`PhotoFrame`) falls back to an illustrated placeholder automatically, so the site is fully presentable either way.
+4. Use web-sized, compressed images — large files will slow down the site.
 
 ### Events / function schedule
 Add entries to the `events` array in `src/data/wedding.ts`. Each event supports name, Marathi name, date, start/end time, venue, description, an optional per-event dress code, and an optional directions link. Leave the array empty to show the Marathi/English "details coming soon" placeholder (current state) instead of fabricated events.
@@ -107,10 +108,10 @@ Then push to `main` — the GitHub Actions workflow handles the rest.
 
 ## Known limitations / outstanding details (as of this writing)
 
-- [ ] Full venue address (currently shows "Koregaon" with address pending)
+- [x] Venue name, full address, and Maps link — confirmed and implemented
 - [ ] Exact ceremony/muhurat time (not fabricated — UI clearly marks the reference time as unconfirmed)
 - [ ] Full function schedule (Haldi/Mehendi/Sangeet/etc. dates & times)
-- [ ] Couple/gallery photographs (placeholders shown until files are added — see above)
+- [ ] Couple photographs — see "Couple photos — currently pending" above
 - [ ] Family names and contact details
 - [ ] Background music track (licensed)
 - [ ] RSVP / contact phone or email

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { wedding, messages } from "../data/wedding";
+import { wedding, messages, couple } from "../data/wedding";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import styles from "./ScratchReveal.module.css";
 
@@ -40,13 +40,39 @@ function drawStar(ctx: CanvasRenderingContext2D, size: number, rotation: number)
   ctx.restore();
 }
 
+const MARATHI_MONTHS = [
+  "जानेवारी",
+  "फेब्रुवारी",
+  "मार्च",
+  "एप्रिल",
+  "मे",
+  "जून",
+  "जुलै",
+  "ऑगस्ट",
+  "सप्टेंबर",
+  "ऑक्टोबर",
+  "नोव्हेंबर",
+  "डिसेंबर",
+];
+
+const DEVANAGARI_DIGITS = ["०", "१", "२", "३", "४", "५", "६", "७", "८", "९"];
+
+function toDevanagariNumeral(n: number): string {
+  return String(n)
+    .split("")
+    .map((d) => DEVANAGARI_DIGITS[Number(d)] ?? d)
+    .join("");
+}
+
 function formatDate(iso: string) {
   const [y, m, d] = iso.split("-").map(Number);
   const date = new Date(Date.UTC(y, m - 1, d));
   const day = date.getUTCDate();
   const month = date.toLocaleDateString("en-US", { month: "long", timeZone: "UTC" });
   const year = date.getUTCFullYear();
-  return { day, month, year };
+  const monthMarathi = MARATHI_MONTHS[date.getUTCMonth()];
+  const marathiDate = `${toDevanagariNumeral(day)} ${monthMarathi} ${toDevanagariNumeral(year)}`;
+  return { day, month, year, marathiDate };
 }
 
 export function ScratchReveal() {
@@ -62,7 +88,7 @@ export function ScratchReveal() {
   const [revealed, setRevealed] = useState(false);
   const [progress, setProgress] = useState(0);
   const reducedMotion = usePrefersReducedMotion();
-  const { day, month, year } = formatDate(wedding.date);
+  const { marathiDate } = formatDate(wedding.date);
 
   const drawCover = useCallback(() => {
     const canvas = canvasRef.current;
@@ -90,12 +116,31 @@ export function ScratchReveal() {
     ctx.strokeRect(10, 10, rect.width - 20, rect.height - 20);
 
     ctx.fillStyle = "#e3c878";
-    ctx.font = `600 ${Math.max(18, rect.width * 0.09)}px Marcellus, serif`;
+    ctx.font = `600 ${Math.max(20, rect.width * 0.095)}px "Tiro Devanagari Marathi", serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.fillText("Scratch", rect.width / 2, rect.height / 2 - 14);
-    ctx.font = `${Math.max(13, rect.width * 0.045)}px "Cormorant Garamond", serif`;
-    ctx.fillText(messages.scratchInstruction, rect.width / 2, rect.height / 2 + 22);
+    ctx.fillText("शुभविवाह", rect.width / 2, rect.height / 2 - 24);
+
+    ctx.font = `${Math.max(13, rect.width * 0.045)}px "Tiro Devanagari Marathi", serif`;
+    const words = messages.scratchInstruction.split(" ");
+    const maxWidth = rect.width - 48;
+    const lines: string[] = [];
+    let current = "";
+    for (const word of words) {
+      const test = current ? `${current} ${word}` : word;
+      if (ctx.measureText(test).width > maxWidth && current) {
+        lines.push(current);
+        current = word;
+      } else {
+        current = test;
+      }
+    }
+    if (current) lines.push(current);
+    const lineHeight = Math.max(13, rect.width * 0.045) * 1.4;
+    const startY = rect.height / 2 + 14;
+    lines.forEach((line, i) => {
+      ctx.fillText(line, rect.width / 2, startY + i * lineHeight);
+    });
   }, []);
 
   const sizeParticleCanvas = useCallback(() => {
@@ -114,6 +159,16 @@ export function ScratchReveal() {
   useEffect(() => {
     drawCover();
     sizeParticleCanvas();
+
+    // Canvas text doesn't wait for webfonts the way DOM text does — redraw
+    // once the Devanagari font has actually finished loading so the cover
+    // label never silently falls back to a font missing those glyphs.
+    if (typeof document !== "undefined" && "fonts" in document) {
+      document.fonts.ready.then(() => {
+        if (!revealed) drawCover();
+      });
+    }
+
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
     const observer = new ResizeObserver(() => {
@@ -307,10 +362,11 @@ export function ScratchReveal() {
         transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
         style={{ transformOrigin: "50% 45%" }}
       >
-        <p className={styles.dateLabel}>
-          {month} <span className={styles.dateDay}>{day}</span>
-          {year}
+        <p className={`marathi ${styles.shubhVivah}`}>शुभविवाह</p>
+        <p className={styles.coupleNames}>
+          {couple.groom.name} &amp; {couple.bride.name}
         </p>
+        <p className={`marathi ${styles.dateLabel}`}>{marathiDate}</p>
         <p className={`marathi ${styles.message}`}>{messages.scratchRevealMessage}</p>
       </motion.div>
 

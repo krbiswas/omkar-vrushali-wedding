@@ -76,6 +76,45 @@ export function TopBorder({ className }: { className?: string }) {
   );
 }
 
+export function GaneshMotif({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="40" cy="40" r="38" stroke="var(--color-gold-500)" strokeWidth="1" opacity="0.4" />
+      <ellipse cx="40" cy="30" rx="13" ry="12" fill="var(--color-gold-500)" />
+      <path d="M28 34 Q20 42 26 54 Q30 58 34 52" stroke="var(--color-gold-500)" strokeWidth="4" fill="none" strokeLinecap="round" />
+      <ellipse cx="22" cy="30" rx="9" ry="12" fill="var(--color-gold-300)" transform="rotate(-10 22 30)" />
+      <ellipse cx="58" cy="30" rx="9" ry="12" fill="var(--color-gold-300)" transform="rotate(10 58 30)" />
+      <circle cx="34" cy="28" r="2" fill="var(--color-maroon-900)" />
+      <circle cx="46" cy="28" r="2" fill="var(--color-maroon-900)" />
+      <path d="M26 48 Q40 58 54 48 L50 62 Q40 68 30 62 Z" fill="var(--color-gold-500)" />
+      <circle cx="40" cy="12" r="3" fill="var(--color-saffron-500)" />
+    </svg>
+  );
+}
+
+export function GarlandStrip({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 400 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M0,4 Q40,34 80,4 T160,4 T240,4 T320,4 T400,4" stroke="var(--color-green-600)" strokeWidth="2" fill="none" opacity="0.6" />
+      {Array.from({ length: 10 }).map((_, i) => {
+        const x = 20 + i * 38;
+        const marigold = i % 2 === 0;
+        return (
+          <circle
+            key={i}
+            cx={x}
+            cy={i % 2 === 0 ? 18 : 10}
+            r={marigold ? 6 : 5}
+            fill={marigold ? "var(--color-saffron-500)" : "var(--color-ivory-100)"}
+            stroke="var(--color-gold-500)"
+            strokeWidth="0.75"
+          />
+        );
+      })}
+    </svg>
+  );
+}
+
 export function KalashMotif({ className }: { className?: string }) {
   return (
     <svg className={className} viewBox="0 0 60 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">

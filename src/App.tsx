@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { IntroCover } from "./components/IntroCover";
 import { Navigation } from "./components/Navigation";
+import { DecorativeSideBorder } from "./components/DecorativeSideBorder";
 import { HeroSection } from "./components/HeroSection";
 import { MandalaWelcome } from "./components/MandalaWelcome";
 import { PhotoStory } from "./components/PhotoStory";
-import { PhotoGallery } from "./components/PhotoGallery";
 import { LandscapeScene } from "./components/LandscapeScene";
 import { CountdownSection } from "./components/CountdownSection";
 import { EventTimeline } from "./components/EventTimeline";
@@ -18,12 +18,12 @@ function App() {
   return (
     <>
       <IntroCover open={opened} onOpen={() => setOpened(true)} />
+      <DecorativeSideBorder />
       <Navigation />
       <main>
         <HeroSection />
         <MandalaWelcome />
         <PhotoStory />
-        <PhotoGallery />
         <LandscapeScene />
         <CountdownSection />
         <EventTimeline />

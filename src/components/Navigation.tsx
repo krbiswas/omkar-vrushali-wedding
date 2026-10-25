@@ -4,7 +4,6 @@ import styles from "./Navigation.module.css";
 
 const NAV_ITEMS = [
   { id: "story", label: "Our Story" },
-  { id: "gallery", label: "Gallery" },
   { id: "countdown", label: "Countdown" },
   { id: "events", label: "Events" },
   { id: "venue", label: "Venue" },
