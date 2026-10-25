@@ -30,13 +30,6 @@ export interface GalleryImage {
   date?: string;
 }
 
-export interface DressCodeEntry {
-  audience: "Women" | "Men" | "All Guests";
-  description: string;
-  colors?: string[];
-  referenceImage?: string;
-}
-
 export const couple = {
   groom: {
     name: "Omkar",
@@ -59,11 +52,13 @@ export const wedding = {
   /** ISO date for the main wedding ceremony */
   date: "2026-11-26",
   /**
-   * PENDING: exact ceremony time has not been provided.
-   * Default kept at 10:00 AM IST as a clearly-documented placeholder.
-   * Update this the moment the family confirms the muhurat time.
+   * PENDING: the actual muhurat (ceremony time) has not been confirmed by the family.
+   * This is NOT a confirmed time — it exists only so the countdown has a reference
+   * point. The UI must always label it as provisional/unconfirmed, never as the
+   * real ceremony time. Update once the muhurat is confirmed.
    */
-  defaultCeremonyTime: "10:00",
+  referenceCeremonyTime: "10:00",
+  ceremonyTimeConfirmed: false,
   timezone: "Asia/Kolkata",
   venue: {
     name: "Koregaon",
@@ -92,10 +87,6 @@ export const events: WeddingEvent[] = [
   //   description: "",
   //   dressCode: "Yellow",
   // },
-];
-
-export const dressCode: DressCodeEntry[] = [
-  // PENDING: no confirmed dress code yet. Populate per-audience entries here.
 ];
 
 export const gallery: GalleryImage[] = [
@@ -134,6 +125,12 @@ export const messages = {
   scratchRevealMessage: "आपल्या उपस्थितीने आमचा आनंद द्विगुणित होईल",
   welcomeMessage:
     "With the blessings of our families, we joyfully invite you to celebrate our wedding.",
+  mandalaEyebrow: "शुभ मंगल सावधान",
+  mandalaCaption: "A union blessed, a journey begun",
+  landscapeCaption: "From the hills of Koregaon, with love",
+  eventsEmptyState: "कार्यक्रमाचे तपशील लवकरच कळविले जातील",
+  eventsEmptyStateEnglish: "Function details will be shared soon",
+  ceremonyTimeProvisionalNote: "Time shown is a placeholder only — the muhurat is not yet confirmed.",
   closingBlessing: "सहपरिवार विवाह सोहळ्यास अवश्य उपस्थित रहावे",
   closingNote: "Looking forward to celebrating with you",
 };

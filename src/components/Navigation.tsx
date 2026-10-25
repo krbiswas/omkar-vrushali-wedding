@@ -3,11 +3,10 @@ import { ArrowUp } from "lucide-react";
 import styles from "./Navigation.module.css";
 
 const NAV_ITEMS = [
-  { id: "couple", label: "Couple" },
+  { id: "story", label: "Our Story" },
+  { id: "gallery", label: "Gallery" },
   { id: "countdown", label: "Countdown" },
   { id: "events", label: "Events" },
-  { id: "dress-code", label: "Dress Code" },
-  { id: "gallery", label: "Gallery" },
   { id: "venue", label: "Venue" },
 ];
 

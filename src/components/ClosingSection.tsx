@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Share2, Copy, Check } from "lucide-react";
 import { couple, messages, shareConfig, rsvp } from "../data/wedding";
 import { Reveal } from "./Reveal";
+import { MandalaMotif } from "./MandalaMotif";
 import section from "../styles/section.module.css";
 import styles from "./ClosingSection.module.css";
 
@@ -22,7 +23,9 @@ export function ClosingSection() {
   };
 
   return (
-    <section id="closing" className={section.section}>
+    <section id="closing" className={`${section.section} ${styles.section}`}>
+      <MandalaMotif className={styles.backdrop} id="closing-mandala" />
+
       <Reveal>
         <p className={`marathi ${styles.blessing}`}>{messages.closingBlessing}</p>
         <h2 className={section.heading}>

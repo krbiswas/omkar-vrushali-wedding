@@ -5,7 +5,40 @@ import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import styles from "./ScratchReveal.module.css";
 
 const REVEAL_THRESHOLD = 0.5;
-const BRUSH_RADIUS = 28;
+const BRUSH_RADIUS = 42;
+
+interface Particle {
+  x: number;
+  y: number;
+  vx: number;
+  vy: number;
+  size: number;
+  rotation: number;
+  vr: number;
+  life: number;
+  maxLife: number;
+  hue: "gold" | "ivory";
+}
+
+function drawStar(ctx: CanvasRenderingContext2D, size: number, rotation: number) {
+  ctx.save();
+  ctx.rotate(rotation);
+  ctx.beginPath();
+  for (let i = 0; i < 4; i++) {
+    const angle = (Math.PI / 2) * i;
+    const outerX = Math.cos(angle) * size;
+    const outerY = Math.sin(angle) * size;
+    const innerAngle = angle + Math.PI / 4;
+    const innerX = Math.cos(innerAngle) * size * 0.35;
+    const innerY = Math.sin(innerAngle) * size * 0.35;
+    if (i === 0) ctx.moveTo(outerX, outerY);
+    else ctx.lineTo(outerX, outerY);
+    ctx.lineTo(innerX, innerY);
+  }
+  ctx.closePath();
+  ctx.fill();
+  ctx.restore();
+}
 
 function formatDate(iso: string) {
   const [y, m, d] = iso.split("-").map(Number);
@@ -19,9 +52,12 @@ function formatDate(iso: string) {
 export function ScratchReveal() {
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const particleCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const isScratchingRef = useRef(false);
   const lastPointRef = useRef<{ x: number; y: number } | null>(null);
   const sampleCounterRef = useRef(0);
+  const particlesRef = useRef<Particle[]>([]);
+  const particleAnimRef = useRef<number | null>(null);
 
   const [revealed, setRevealed] = useState(false);
   const [progress, setProgress] = useState(0);
@@ -62,17 +98,110 @@ export function ScratchReveal() {
     ctx.fillText(messages.scratchInstruction, rect.width / 2, rect.height / 2 + 22);
   }, []);
 
+  const sizeParticleCanvas = useCallback(() => {
+    const canvas = particleCanvasRef.current;
+    const wrapper = wrapperRef.current;
+    if (!canvas || !wrapper) return;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const rect = wrapper.getBoundingClientRect();
+    canvas.width = Math.round(rect.width * dpr);
+    canvas.height = Math.round(rect.height * dpr);
+    canvas.style.width = `${rect.width}px`;
+    canvas.style.height = `${rect.height}px`;
+    canvas.getContext("2d")?.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }, []);
+
   useEffect(() => {
     drawCover();
+    sizeParticleCanvas();
     const wrapper = wrapperRef.current;
     if (!wrapper) return;
     const observer = new ResizeObserver(() => {
-      if (!revealed) drawCover();
+      if (!revealed) {
+        drawCover();
+        sizeParticleCanvas();
+      }
     });
     observer.observe(wrapper);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      if (particleAnimRef.current) cancelAnimationFrame(particleAnimRef.current);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const runParticleLoop = useCallback(() => {
+    const canvas = particleCanvasRef.current;
+    const wrapper = wrapperRef.current;
+    if (!canvas || !wrapper) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+    const rect = wrapper.getBoundingClientRect();
+
+    const step = () => {
+      ctx.clearRect(0, 0, rect.width, rect.height);
+      const particles = particlesRef.current;
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.life += 1;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.03;
+        p.rotation += p.vr;
+        const t = p.life / p.maxLife;
+        if (t >= 1) {
+          particles.splice(i, 1);
+          continue;
+        }
+        const alpha = t < 0.3 ? t / 0.3 : 1 - (t - 0.3) / 0.7;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.globalAlpha = Math.max(0, alpha);
+        ctx.fillStyle = p.hue === "gold" ? "#e3c878" : "#fdf8ef";
+        ctx.shadowColor = p.hue === "gold" ? "#e3c878" : "#fdf8ef";
+        ctx.shadowBlur = 6;
+        drawStar(ctx, p.size, p.rotation);
+        ctx.restore();
+      }
+
+      if (particles.length > 0) {
+        particleAnimRef.current = requestAnimationFrame(step);
+      } else {
+        particleAnimRef.current = null;
+      }
+    };
+
+    if (particleAnimRef.current === null) {
+      particleAnimRef.current = requestAnimationFrame(step);
+    }
+  }, []);
+
+  const spawnGlitter = useCallback(
+    (x: number, y: number) => {
+      if (reducedMotion) return;
+      for (let i = 0; i < 3; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 0.4 + Math.random() * 1.2;
+        particlesRef.current.push({
+          x,
+          y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed - 0.4,
+          size: 2 + Math.random() * 3,
+          rotation: Math.random() * Math.PI,
+          vr: (Math.random() - 0.5) * 0.3,
+          life: 0,
+          maxLife: 28 + Math.random() * 18,
+          hue: Math.random() > 0.4 ? "gold" : "ivory",
+        });
+      }
+      if (particlesRef.current.length > 240) {
+        particlesRef.current.splice(0, particlesRef.current.length - 240);
+      }
+      runParticleLoop();
+    },
+    [reducedMotion, runParticleLoop]
+  );
 
   const getRelativePoint = (clientX: number, clientY: number) => {
     const canvas = canvasRef.current;
@@ -137,12 +266,14 @@ export function ScratchReveal() {
     canvasRef.current?.setPointerCapture(e.pointerId);
     const { x, y } = getRelativePoint(e.clientX, e.clientY);
     scratchAt(x, y);
+    spawnGlitter(x, y);
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLCanvasElement>) => {
     if (!isScratchingRef.current || revealed) return;
     const { x, y } = getRelativePoint(e.clientX, e.clientY);
     scratchAt(x, y);
+    spawnGlitter(x, y);
     sampleCounterRef.current += 1;
     if (sampleCounterRef.current % 4 === 0) {
       measureProgress();
@@ -154,6 +285,14 @@ export function ScratchReveal() {
     lastPointRef.current = null;
     measureProgress();
   };
+
+  useEffect(() => {
+    if (revealed && particleAnimRef.current) {
+      cancelAnimationFrame(particleAnimRef.current);
+      particleAnimRef.current = null;
+      particlesRef.current = [];
+    }
+  }, [revealed]);
 
   return (
     <div className={styles.wrapper} ref={wrapperRef}>
@@ -187,6 +326,7 @@ export function ScratchReveal() {
             role="img"
             aria-label={messages.scratchInstruction}
           />
+          <canvas ref={particleCanvasRef} className={styles.particleCanvas} aria-hidden="true" />
           <div className={styles.progressTrack} aria-hidden="true">
             <div className={styles.progressFill} style={{ width: `${Math.min(progress / REVEAL_THRESHOLD, 1) * 100}%` }} />
           </div>

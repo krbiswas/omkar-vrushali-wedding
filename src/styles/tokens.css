@@ -94,6 +94,14 @@ button {
   font-family: inherit;
 }
 
+/* GSAP-animated SVG mandala/rangoli pieces (MandalaMotif) scale/rotate around their own center */
+[class*="-petal"],
+[class*="-ring"],
+[class*="-core"] {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;

@@ -1,4 +1,4 @@
-import { events } from "../data/wedding";
+import { events, messages } from "../data/wedding";
 import { Reveal } from "./Reveal";
 import section from "../styles/section.module.css";
 import styles from "./EventTimeline.module.css";
@@ -21,14 +21,17 @@ export function EventTimeline() {
 
       {events.length === 0 ? (
         <Reveal delay={0.1}>
-          <p className={section.pendingNote}>
-            The full function schedule is being finalized and will appear here soon.
-          </p>
+          <div className={styles.emptyState}>
+            <p className={`marathi ${styles.emptyMarathi}`}>{messages.eventsEmptyState}</p>
+            <p className={styles.emptyEnglish}>{messages.eventsEmptyStateEnglish}</p>
+          </div>
         </Reveal>
       ) : (
         <div className={styles.timeline}>
+          <div className={styles.spine} aria-hidden="true" />
           {events.map((event, i) => (
-            <Reveal key={event.id} delay={i * 0.1}>
+            <Reveal key={event.id} delay={i * 0.1} className={`${styles.row} ${i % 2 === 0 ? styles.rowLeft : styles.rowRight}`}>
+              <div className={styles.marker} aria-hidden="true" />
               <article className={styles.card}>
                 <h3 className={styles.eventName}>
                   {event.name}

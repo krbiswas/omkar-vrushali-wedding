@@ -1,11 +1,11 @@
 import { useCountdown } from "../hooks/useCountdown";
-import { wedding } from "../data/wedding";
+import { wedding, messages } from "../data/wedding";
 import styles from "./Countdown.module.css";
 
 const UNITS = ["days", "hours", "minutes", "seconds"] as const;
 
 export function Countdown() {
-  const countdown = useCountdown(wedding.date, wedding.defaultCeremonyTime, wedding.timezone);
+  const countdown = useCountdown(wedding.date, wedding.referenceCeremonyTime, wedding.timezone);
 
   if (!countdown.isValid) {
     return <p className={styles.complete}>Wedding date coming soon.</p>;
@@ -25,9 +25,7 @@ export function Countdown() {
           </div>
         ))}
       </div>
-      <p className={styles.timeNote}>
-        Ceremony time shown is provisional (IST) and will be updated once confirmed.
-      </p>
+      {!wedding.ceremonyTimeConfirmed && <p className={styles.timeNote}>{messages.ceremonyTimeProvisionalNote}</p>}
     </div>
   );
 }

@@ -1,13 +1,20 @@
 import { useState } from "react";
 import { gallery } from "../data/wedding";
 import { Reveal } from "./Reveal";
+import { PhotoFrame } from "./PhotoFrame";
 import { asset } from "../utils/asset";
 import section from "../styles/section.module.css";
 import styles from "./PhotoGallery.module.css";
 
 export function PhotoGallery() {
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [lightboxErrored, setLightboxErrored] = useState(false);
   const active = gallery.find((g) => g.id === activeId) ?? null;
+
+  const openLightbox = (id: string) => {
+    setLightboxErrored(false);
+    setActiveId(id);
+  };
 
   return (
     <section id="gallery" className={section.section}>
@@ -28,10 +35,10 @@ export function PhotoGallery() {
               <button
                 type="button"
                 className={styles.item}
-                onClick={() => setActiveId(img.id)}
+                onClick={() => openLightbox(img.id)}
                 aria-label={`View photo: ${img.alt}`}
               >
-                <img src={asset(img.src)} alt={img.alt} loading="lazy" />
+                <PhotoFrame src={img.src} alt={img.alt} />
               </button>
             </Reveal>
           ))}
@@ -40,7 +47,18 @@ export function PhotoGallery() {
 
       {active && (
         <div className={styles.lightbox} role="dialog" aria-modal="true" onClick={() => setActiveId(null)}>
-          <img src={asset(active.src)} alt={active.alt} />
+          {lightboxErrored ? (
+            <div className={styles.lightboxFallback} onClick={(e) => e.stopPropagation()}>
+              <PhotoFrame src={undefined} alt={active.alt} />
+            </div>
+          ) : (
+            <img
+              src={asset(active.src)}
+              alt={active.alt}
+              onClick={(e) => e.stopPropagation()}
+              onError={() => setLightboxErrored(true)}
+            />
+          )}
           {active.caption && <p className={styles.caption}>{active.caption}</p>}
           <button type="button" className={styles.close} onClick={() => setActiveId(null)} aria-label="Close">
             ×

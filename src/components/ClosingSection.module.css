@@ -1,3 +1,25 @@
+.section {
+  position: relative;
+  overflow: hidden;
+}
+
+.backdrop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(140vw, 900px);
+  height: min(140vw, 900px);
+  transform: translate(-50%, -50%);
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.section > :not(.backdrop) {
+  position: relative;
+  z-index: 1;
+}
+
 .blessing {
   font-size: 1.3rem;
   color: var(--color-saffron-500);

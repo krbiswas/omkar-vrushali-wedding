@@ -1,6 +1,8 @@
 import { Countdown } from "./Countdown";
 import { Reveal } from "./Reveal";
+import { LotusMotif } from "./Motifs";
 import section from "../styles/section.module.css";
+import styles from "./CountdownSection.module.css";
 
 export function CountdownSection() {
   return (
@@ -11,7 +13,10 @@ export function CountdownSection() {
         <div className={section.divider} />
       </Reveal>
       <Reveal delay={0.1}>
-        <Countdown />
+        <div className={styles.wrap}>
+          <LotusMotif className={styles.seal} />
+          <Countdown />
+        </div>
       </Reveal>
     </section>
   );
