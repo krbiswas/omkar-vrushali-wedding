@@ -5,195 +5,284 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at 50% 40%, var(--color-parchment), var(--color-ivory-200) 60%, var(--color-ivory-100) 100%);
-  color: var(--color-ink-900);
+  background: linear-gradient(
+    160deg,
+    var(--color-maroon-900) 0%,
+    var(--color-maroon-700) 40%,
+    var(--color-maroon-500) 70%,
+    #6b1424 100%
+  );
+  color: var(--color-ivory-100);
   text-align: center;
   padding: var(--space-4);
   cursor: pointer;
+  overflow: hidden;
 }
 
-.frame {
-  position: relative;
-  width: min(88vw, 420px);
-  aspect-ratio: 3 / 4.5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+/* ── Rose petal shower on the cover ── */
+.petalShower {
+  position: absolute;
+  inset: 0;
   overflow: hidden;
-  background: var(--color-parchment);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.coverPetal {
+  position: absolute;
+  top: -5%;
+  opacity: 0;
+  animation-name: petalFall;
+  animation-timing-function: ease-in;
+  animation-iteration-count: infinite;
+}
+
+@keyframes petalFall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(45vh) translateX(30px) rotate(160deg);
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(105vh) translateX(50px) rotate(320deg);
+    opacity: 0;
+  }
+}
+
+/* ── The invitation card ── */
+.card {
+  position: relative;
+  z-index: 1;
+  width: min(92vw, 420px);
+  background: linear-gradient(
+    180deg,
+    var(--color-parchment) 0%,
+    var(--color-ivory-200) 50%,
+    var(--color-parchment) 100%
+  );
   border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-3);
   box-shadow:
     0 0 0 2px var(--color-gold-500),
-    0 0 0 6px rgba(200, 155, 60, 0.15),
-    0 12px 40px rgba(74, 13, 26, 0.2);
+    0 0 0 5px rgba(200, 155, 60, 0.2),
+    0 0 40px rgba(200, 155, 60, 0.25),
+    0 20px 60px rgba(0, 0, 0, 0.35);
 }
 
-.frame::before {
-  content: "";
-  position: absolute;
-  inset: 8px;
-  border: 1px solid var(--color-gold-300);
-  border-radius: calc(var(--radius-md) - 4px);
-  opacity: 0.5;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.frame::after {
-  content: "";
-  position: absolute;
-  inset: 14px;
-  border: 1px solid var(--color-gold-300);
+.innerBorder {
+  border: 1.5px solid var(--color-gold-300);
   border-radius: calc(var(--radius-md) - 6px);
-  opacity: 0.25;
-  pointer-events: none;
-  z-index: 2;
+  padding: var(--space-5) var(--space-4);
+  position: relative;
 }
 
-.ornament {
+.innerBorder::before {
+  content: "";
   position: absolute;
-  z-index: 0;
+  inset: 5px;
+  border: 1px solid var(--color-gold-300);
+  border-radius: calc(var(--radius-md) - 10px);
+  opacity: 0.35;
   pointer-events: none;
-  object-fit: contain;
 }
 
-.topLeft,
-.topRight {
-  top: 0;
-  width: 38%;
-  height: auto;
-  max-height: 22%;
+/* ── Floral corners ── */
+.corner {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 1;
 }
 
 .topLeft {
-  left: 0;
+  top: 4px;
+  left: 4px;
 }
 
 .topRight {
-  right: 0;
+  top: 4px;
+  right: 4px;
   transform: scaleX(-1);
-}
-
-.bottomLeft,
-.bottomRight {
-  bottom: 0;
-  width: 40%;
-  height: auto;
-  max-height: 24%;
 }
 
 .bottomLeft {
-  left: 0;
+  bottom: 4px;
+  left: 4px;
+  transform: scaleY(-1);
 }
 
 .bottomRight {
-  right: 0;
-  transform: scaleX(-1);
+  bottom: 4px;
+  right: 4px;
+  transform: scale(-1, -1);
 }
 
-.sideStrip {
-  position: absolute;
-  top: 22%;
-  bottom: 24%;
-  width: 10%;
-  height: auto;
-  z-index: 0;
-  pointer-events: none;
-  object-fit: cover;
+/* ── Garland strips ── */
+.garlandTop {
+  width: 70%;
+  height: 20px;
+  display: block;
+  margin: 0 auto var(--space-2);
+  opacity: 0.7;
 }
 
-.sideStrip.left {
-  left: 0;
+.garlandBottom {
+  width: 70%;
+  height: 20px;
+  display: block;
+  margin: var(--space-2) auto 0;
+  opacity: 0.7;
+  transform: scaleY(-1);
 }
 
-.sideStrip.right {
-  right: 0;
-  transform: scaleX(-1);
-}
-
+/* ── Content ── */
 .content {
-  position: relative;
-  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0;
-  padding: 0 14%;
-  max-width: 100%;
 }
 
-.motif {
-  width: 40px;
-  height: 40px;
+.ganesh {
+  width: 52px;
+  height: 52px;
   margin-bottom: var(--space-2);
-  color: var(--color-gold-500);
 }
 
 .blessing {
-  font-size: clamp(0.8rem, 2.8vw, 0.95rem);
+  font-size: clamp(0.9rem, 3vw, 1.1rem);
   color: var(--color-saffron-500);
-  letter-spacing: 0.06em;
-  margin-bottom: var(--space-3);
-  line-height: 1.4;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+}
+
+.divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold-500) 20%,
+    var(--color-gold-500) 80%,
+    transparent
+  );
+  margin: var(--space-2) 0;
+  opacity: 0.6;
 }
 
 .names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  margin: var(--space-1) 0;
+}
+
+.groom,
+.bride {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 7vw, 2.4rem);
-  line-height: 1.1;
+  font-size: clamp(2rem, 8vw, 2.8rem);
+  font-weight: 500;
   color: var(--color-maroon-900);
-  letter-spacing: 0.01em;
-  margin-bottom: var(--space-2);
+  line-height: 1.15;
+  letter-spacing: 0.02em;
 }
 
 .amp {
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 3.5vw, 1.3rem);
   color: var(--color-saffron-500);
-  display: block;
-  font-size: 0.5em;
-  margin: 0.15em 0;
   font-style: italic;
+  line-height: 1.4;
 }
 
 .subtitle {
-  font-size: clamp(0.65rem, 2vw, 0.78rem);
-  opacity: 0.7;
-  letter-spacing: 0.12em;
+  font-size: clamp(0.95rem, 3.2vw, 1.15rem);
+  color: var(--color-maroon-700);
+  font-weight: 600;
+  margin-top: var(--space-1);
+}
+
+.subtitleEn {
+  font-family: var(--font-display);
+  font-size: clamp(0.7rem, 2.2vw, 0.82rem);
+  color: var(--color-ink-700);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--text-muted);
+  opacity: 0.65;
   margin-bottom: var(--space-4);
 }
 
-.instruction {
-  font-size: 0.75rem;
-  opacity: 0.6;
-  color: var(--text-muted);
-  letter-spacing: 0.04em;
+/* ── Call-to-action button ── */
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-maroon-700);
+  color: var(--color-ivory-100);
+  border: 1.5px solid var(--color-gold-500);
+  padding: 0.7rem 1.8rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 2px 12px rgba(74, 13, 26, 0.3);
 }
 
-.pulse {
-  animation: pulse 2.2s ease-in-out infinite;
+.ctaButton:hover {
+  background: var(--color-maroon-900);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(74, 13, 26, 0.4);
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); opacity: 0.85; }
-  50% { transform: scale(1.05); opacity: 1; }
+.ctaPulse {
+  animation: ctaBreathe 2.5s ease-in-out infinite;
 }
 
+@keyframes ctaBreathe {
+  0%, 100% {
+    box-shadow: 0 2px 12px rgba(74, 13, 26, 0.3);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 4px 24px rgba(200, 155, 60, 0.4);
+    transform: scale(1.03);
+  }
+}
+
+/* ── Small screens ── */
 @media (max-width: 380px) {
-  .frame {
-    width: 92vw;
+  .card {
+    width: 96vw;
+    padding: var(--space-3) var(--space-2);
   }
-  .content {
-    padding: 0 12%;
+  .innerBorder {
+    padding: var(--space-4) var(--space-3);
   }
-  .names {
-    font-size: 1.6rem;
+  .corner {
+    width: 60px;
+    height: 60px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .pulse {
+  .ctaPulse {
     animation: none;
+  }
+  .coverPetal {
+    display: none;
   }
 }

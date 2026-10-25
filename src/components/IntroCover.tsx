@@ -1,13 +1,110 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { couple, messages } from "../data/wedding";
-import { GaneshMotif } from "./Motifs";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
-import { asset } from "../utils/asset";
 import styles from "./IntroCover.module.css";
 
 interface IntroCoverProps {
   open: boolean;
   onOpen: () => void;
+}
+
+function GaneshIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="32" cy="30" r="14" fill="none" stroke="var(--color-gold-500)" strokeWidth="1.5" />
+      <ellipse cx="32" cy="28" rx="8" ry="9" fill="var(--color-saffron-500)" opacity="0.9" />
+      <ellipse cx="28" cy="26" rx="2.5" ry="3" fill="var(--color-gold-500)" opacity="0.7" />
+      <ellipse cx="36" cy="26" rx="2.5" ry="3" fill="var(--color-gold-500)" opacity="0.7" />
+      <circle cx="29" cy="25" r="1" fill="var(--color-maroon-900)" />
+      <circle cx="35" cy="25" r="1" fill="var(--color-maroon-900)" />
+      <path d="M32 28 Q33 32 36 35 Q33 34 32 32" fill="var(--color-saffron-500)" />
+      <path d="M26 22 Q22 16 18 18" stroke="var(--color-gold-500)" strokeWidth="1.2" fill="none" strokeLinecap="round" />
+      <path d="M38 22 Q42 16 46 18" stroke="var(--color-gold-500)" strokeWidth="1.2" fill="none" strokeLinecap="round" />
+      <circle cx="32" cy="44" r="4" fill="var(--color-gold-500)" opacity="0.3" />
+      <circle cx="32" cy="44" r="2" fill="var(--color-gold-500)" opacity="0.6" />
+    </svg>
+  );
+}
+
+function FloralCorner({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      {/* Leaves */}
+      <path d="M8 110 Q6 70 25 45 Q12 65 15 95 Z" fill="var(--color-green-600)" opacity="0.7" />
+      <path d="M0 115 Q-2 55 35 18 Q15 50 12 95 Z" fill="var(--color-green-600)" opacity="0.5" />
+      <path d="M20 100 Q22 60 50 35 Q35 55 30 85 Z" fill="var(--color-green-600)" opacity="0.4" />
+      {/* Main flower */}
+      {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, i) => (
+        <ellipse key={i} cx="42" cy="30" rx="6" ry="14" fill="var(--color-maroon-500)" opacity={0.7} transform={`rotate(${angle} 42 30)`} />
+      ))}
+      <circle cx="42" cy="30" r="9" fill="var(--color-saffron-500)" />
+      <circle cx="42" cy="30" r="5" fill="var(--color-gold-500)" />
+      <circle cx="42" cy="30" r="2.5" fill="var(--color-gold-300)" />
+      {/* Second flower */}
+      {[0, 60, 120, 180, 240, 300].map((angle, i) => (
+        <ellipse key={i} cx="18" cy="55" rx="4" ry="10" fill="var(--color-saffron-500)" opacity={0.6} transform={`rotate(${angle} 18 55)`} />
+      ))}
+      <circle cx="18" cy="55" r="6" fill="var(--color-maroon-700)" opacity="0.8" />
+      <circle cx="18" cy="55" r="3" fill="var(--color-gold-500)" />
+      {/* Small buds */}
+      <circle cx="60" cy="16" r="5" fill="var(--color-saffron-500)" opacity="0.6" />
+      <circle cx="60" cy="16" r="2.5" fill="var(--color-gold-300)" />
+      <circle cx="10" cy="78" r="4" fill="var(--color-maroon-500)" opacity="0.5" />
+      <circle cx="10" cy="78" r="2" fill="var(--color-saffron-300)" />
+      <circle cx="55" cy="42" r="3.5" fill="var(--color-saffron-500)" opacity="0.45" />
+      <circle cx="55" cy="42" r="1.8" fill="var(--color-gold-300)" />
+      {/* Leaf veins */}
+      <path d="M6 95 Q10 75 22 55" stroke="var(--color-green-600)" strokeWidth="0.6" fill="none" opacity="0.5" />
+      <path d="M4 105 Q8 70 30 35" stroke="var(--color-green-600)" strokeWidth="0.5" fill="none" opacity="0.3" />
+    </svg>
+  );
+}
+
+function GarlandStrip({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 300 40" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M0 8 Q75 35 150 8 Q225 35 300 8" fill="none" stroke="var(--color-gold-500)" strokeWidth="1" opacity="0.5" />
+      {[30, 75, 120, 150, 180, 225, 270].map((x, i) => (
+        <g key={i}>
+          <circle cx={x} cy={12 + (i % 2) * 14} r={3 + (i % 3)} fill={i % 2 === 0 ? "var(--color-saffron-500)" : "var(--color-maroon-500)"} opacity="0.7" />
+          <circle cx={x} cy={12 + (i % 2) * 14} r={1.5 + (i % 2)} fill="var(--color-gold-300)" opacity="0.5" />
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function PetalShower() {
+  const petals = Array.from({ length: 8 }, (_, i) => ({
+    id: i,
+    left: 5 + ((i * 31 + 7) % 90),
+    size: 8 + (i % 4) * 3,
+    delay: i * 1.8,
+    duration: 7 + (i % 3) * 3,
+    color: i % 3 === 0 ? "#b3273a" : i % 3 === 1 ? "#d94f5c" : "#e8762c",
+  }));
+
+  return (
+    <div className={styles.petalShower} aria-hidden="true">
+      {petals.map((p) => (
+        <svg
+          key={p.id}
+          className={styles.coverPetal}
+          style={{
+            left: `${p.left}%`,
+            width: p.size,
+            height: p.size,
+            animationDuration: `${p.duration}s`,
+            animationDelay: `${p.delay}s`,
+          }}
+          viewBox="0 0 16 16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M8 0 C13 3 14 9 8 16 C2 9 3 3 8 0 Z" fill={p.color} opacity="0.7" />
+        </svg>
+      ))}
+    </div>
+  );
 }
 
 export function IntroCover({ open, onOpen }: IntroCoverProps) {
@@ -32,28 +129,58 @@ export function IntroCover({ open, onOpen }: IntroCoverProps) {
           onClick={handleOpen}
           onKeyDown={handleKey}
           initial={{ opacity: 1 }}
-          exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 1.08 }}
+          exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 1.06 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
         >
-          <div className={styles.frame}>
-            <img className={`${styles.ornament} ${styles.topLeft}`} src={asset("/images/decor/portrait-top-left.webp")} alt="" aria-hidden="true" />
-            <img className={`${styles.ornament} ${styles.topRight}`} src={asset("/images/decor/portrait-top-right.webp")} alt="" aria-hidden="true" />
-            <img className={`${styles.sideStrip} ${styles.left}`} src={asset("/images/decor/portrait-left-strip.webp")} alt="" aria-hidden="true" />
-            <img className={`${styles.sideStrip} ${styles.right}`} src={asset("/images/decor/portrait-right-strip.webp")} alt="" aria-hidden="true" />
-            <img className={`${styles.ornament} ${styles.bottomLeft}`} src={asset("/images/decor/portrait-bottom-left.webp")} alt="" aria-hidden="true" />
-            <img className={`${styles.ornament} ${styles.bottomRight}`} src={asset("/images/decor/portrait-bottom-right.webp")} alt="" aria-hidden="true" />
+          {!reducedMotion && <PetalShower />}
 
-            <div className={styles.content}>
-              <GaneshMotif className={`${styles.motif} ${reducedMotion ? "" : styles.pulse}`} />
-              <p className={`marathi ${styles.blessing}`}>{messages.openingBlessing}</p>
-              <h1 className={styles.names}>
-                {couple.groom.name}
-                <span className={styles.amp}>&amp;</span>
-                {couple.bride.name}
-              </h1>
-              <p className={styles.subtitle}>{messages.invitationSubtitle}</p>
-              <p className={styles.instruction}>{messages.openInstruction}</p>
+          <div className={styles.card}>
+            <FloralCorner className={`${styles.corner} ${styles.topLeft}`} />
+            <FloralCorner className={`${styles.corner} ${styles.topRight}`} />
+            <FloralCorner className={`${styles.corner} ${styles.bottomLeft}`} />
+            <FloralCorner className={`${styles.corner} ${styles.bottomRight}`} />
+
+            <GarlandStrip className={styles.garlandTop} />
+
+            <div className={styles.innerBorder}>
+              <div className={styles.content}>
+                <GaneshIcon className={styles.ganesh} />
+
+                <p className={`marathi ${styles.blessing}`}>
+                  {messages.openingBlessing}
+                </p>
+
+                <div className={styles.divider} />
+
+                <h1 className={styles.names}>
+                  <span className={styles.groom}>{couple.groom.name}</span>
+                  <span className={styles.amp}>&amp;</span>
+                  <span className={styles.bride}>{couple.bride.name}</span>
+                </h1>
+
+                <div className={styles.divider} />
+
+                <p className={`marathi ${styles.subtitle}`}>
+                  लग्न पत्रिका
+                </p>
+                <p className={styles.subtitleEn}>
+                  {messages.invitationSubtitle}
+                </p>
+
+                <button
+                  type="button"
+                  className={`${styles.ctaButton} ${reducedMotion ? "" : styles.ctaPulse}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onOpen();
+                  }}
+                >
+                  {messages.openInstruction}
+                </button>
+              </div>
             </div>
+
+            <GarlandStrip className={styles.garlandBottom} />
           </div>
         </motion.div>
       )}
