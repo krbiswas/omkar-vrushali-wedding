@@ -48,6 +48,23 @@
   text-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
 }
 
+.blessing {
+  position: absolute;
+  bottom: 16%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 3;
+  color: var(--color-ivory-100);
+  font-family: var(--font-devanagari);
+  font-size: clamp(0.85rem, 2.8vw, 1.05rem);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  max-width: 32ch;
+  margin: 0 auto;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
 @media (max-width: 640px) {
   .photoWrap {
     width: 86vw;

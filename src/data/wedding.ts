@@ -155,6 +155,7 @@ export const messages = {
   mandalaEyebrow: "शुभ मंगल सावधान",
   mandalaCaption: "A union blessed, a journey begun",
   landscapeCaption: "Koregaon, with love",
+  landscapeBlessing: "दोन हृदयांचं एक होणं, दोन कुटुंबांचं एकत्र येणं — हेच खरं प्रेम",
   eventsEmptyState: "लग्नसोहळ्याचा सविस्तर कार्यक्रम लवकरच कळविण्यात येईल",
   eventsEmptyStateEnglish: "The full function schedule will be shared soon",
   ceremonyTimeProvisionalNote: "Time shown is a placeholder only — the muhurat is not yet confirmed.",

@@ -65,6 +65,7 @@ export function LandscapeScene() {
       </div>
 
       <p className={styles.caption}>{messages.landscapeCaption}</p>
+      <p className={`marathi ${styles.blessing}`}>{messages.landscapeBlessing}</p>
     </section>
   );
 }

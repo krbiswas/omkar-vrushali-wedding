@@ -12,7 +12,7 @@ export function PhotoStory() {
   return (
     <section id="story" className={styles.wrap}>
       <Reveal>
-        <p className={`marathi ${section.eyebrow}`}>{"वधू-वर"}</p>
+        <p className={`marathi ${section.eyebrow}`}>{"वर-वधू"}</p>
         <h2 className={section.heading}>
           {couple.groom.name} &amp; {couple.bride.name}
         </h2>
