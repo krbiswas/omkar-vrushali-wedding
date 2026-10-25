@@ -2,6 +2,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { wedding, messages, couple } from "../data/wedding";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
+import { MandalaMotif } from "./MandalaMotif";
+import { PeacockMotif } from "./Motifs";
 import styles from "./ScratchReveal.module.css";
 
 const REVEAL_THRESHOLD = 0.5;
@@ -366,8 +368,13 @@ export function ScratchReveal() {
         <p className={styles.coupleNames}>
           {couple.groom.name} &amp; {couple.bride.name}
         </p>
-        <p className={`marathi ${styles.dateLabel}`}>{marathiDate}</p>
+        <div className={styles.dateBlock}>
+          <MandalaMotif className={styles.dateHalo} id="date-halo" />
+          <p className={`marathi ${styles.dateLabel}`}>{marathiDate}</p>
+        </div>
         <p className={`marathi ${styles.message}`}>{messages.scratchRevealMessage}</p>
+        <PeacockMotif className={`${styles.revealPeacock} ${styles.left}`} />
+        <PeacockMotif className={`${styles.revealPeacock} ${styles.right}`} />
       </motion.div>
 
       {!revealed && (

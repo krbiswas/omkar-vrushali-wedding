@@ -96,6 +96,39 @@
   transform: scaleX(-1);
 }
 
+.hangingLamp {
+  position: absolute;
+  top: 36px;
+  width: 26px;
+  height: 36px;
+  opacity: 0.7;
+  animation: lamp-sway 4.5s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+.hangingLamp.left {
+  left: 18px;
+}
+
+.hangingLamp.right {
+  right: 18px;
+}
+
+@keyframes lamp-sway {
+  0%, 100% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hangingLamp {
+    animation: none;
+  }
+}
+
 .pulse {
   animation: pulse 2.2s ease-in-out infinite;
 }

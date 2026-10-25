@@ -8,10 +8,10 @@
     position: fixed;
     top: 0;
     bottom: 0;
-    width: 120px;
+    width: 200px;
     z-index: 1;
     pointer-events: none;
-    opacity: 0.55;
+    overflow: hidden;
   }
 
   .left {
@@ -24,6 +24,25 @@
   }
 }
 
+.sideMandala {
+  position: absolute;
+  top: 18%;
+  left: -90px;
+  width: 260px;
+  height: 260px;
+  opacity: 0.22;
+  animation: mandala-spin 90s linear infinite;
+}
+
+@keyframes mandala-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .column {
   position: sticky;
   top: 0;
@@ -33,6 +52,7 @@
   align-items: center;
   justify-content: space-between;
   padding: var(--space-5) 0;
+  opacity: 0.6;
 }
 
 .lamp {
@@ -56,9 +76,9 @@
   opacity: 0.8;
 }
 
-.peacock {
-  width: 56px;
-  height: 56px;
+.peacockCluster {
+  width: 110px;
+  height: 110px;
   flex-shrink: 0;
 }
 
@@ -73,6 +93,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .garland {
+    animation: none;
+  }
+  .sideMandala {
     animation: none;
   }
 }

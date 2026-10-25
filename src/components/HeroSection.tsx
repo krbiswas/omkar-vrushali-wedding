@@ -1,13 +1,21 @@
 import { ScratchReveal } from "./ScratchReveal";
 import { Reveal } from "./Reveal";
+import { FloatingPetals } from "./FloatingPetals";
+import { GaneshMotif, FlyingPeacockMotif } from "./Motifs";
+import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import { couple, messages } from "../data/wedding";
 import section from "../styles/section.module.css";
 import styles from "./HeroSection.module.css";
 
 export function HeroSection() {
+  const reducedMotion = usePrefersReducedMotion();
+
   return (
     <section id="home" className={`${section.section} ${styles.hero}`}>
+      <FloatingPetals />
+      {!reducedMotion && <FlyingPeacockMotif className={styles.flyingPeacock} />}
       <Reveal>
+        <GaneshMotif className={styles.ganesh} />
         <p className={`marathi ${section.eyebrow}`}>{messages.openingBlessing}</p>
         <h1 className={styles.names}>
           {couple.groom.name} <span className={styles.amp}>&amp;</span> {couple.bride.name}

@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { couple, messages } from "../data/wedding";
-import { GaneshMotif, GarlandStrip, PeacockMotif } from "./Motifs";
+import { GaneshMotif, GarlandStrip, PeacockMotif, BrassLampMotif } from "./Motifs";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import styles from "./IntroCover.module.css";
 
@@ -36,6 +36,8 @@ export function IntroCover({ open, onOpen }: IntroCoverProps) {
         >
           <div className={styles.frame}>
             <GarlandStrip className={styles.garland} />
+            <BrassLampMotif className={`${styles.hangingLamp} ${styles.left}`} />
+            <BrassLampMotif className={`${styles.hangingLamp} ${styles.right}`} />
             <GaneshMotif className={`${styles.motif} ${reducedMotion ? "" : styles.pulse}`} />
             <p className={`marathi ${styles.blessing}`}>{messages.openingBlessing}</p>
             <h1 className={styles.names}>

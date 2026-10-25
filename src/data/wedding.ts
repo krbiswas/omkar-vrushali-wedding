@@ -44,7 +44,7 @@ export const couple = {
   photos: {
     groomPortrait: null as string | null, // PENDING: path under /public/images once supplied
     bridePortrait: null as string | null, // PENDING
-    couplePhoto: "/images/gallery/1.jpg",
+    couplePhoto: "/images/couple/omkar-vrushali-river-petals.jpg",
   },
 };
 
@@ -90,11 +90,36 @@ export const events: WeddingEvent[] = [
 ];
 
 export const gallery: GalleryImage[] = [
-  { id: "1", src: "/images/gallery/1.jpg", alt: "Omkar and Vrushali by the river, rose petals falling", caption: "" },
-  { id: "2", src: "/images/gallery/2.jpg", alt: "Omkar and Vrushali at a temple courtyard", caption: "" },
-  { id: "3", src: "/images/gallery/3.jpg", alt: "Omkar and Vrushali on stone steps", caption: "" },
-  { id: "4", src: "/images/gallery/4.jpg", alt: "Omkar and Vrushali against a carved temple wall", caption: "" },
-  { id: "5", src: "/images/gallery/5.jpg", alt: "Vrushali in a saree twirl, Omkar smiling nearby", caption: "" },
+  {
+    id: "1",
+    src: "/images/couple/omkar-vrushali-river-petals.jpg",
+    alt: "Omkar and Vrushali seated by a river as rose petals fall around them",
+    caption: "",
+  },
+  {
+    id: "2",
+    src: "/images/couple/omkar-vrushali-temple-arch.jpg",
+    alt: "Omkar and Vrushali standing at a temple archway",
+    caption: "",
+  },
+  {
+    id: "3",
+    src: "/images/couple/omkar-vrushali-stone-steps.jpg",
+    alt: "Omkar and Vrushali sitting together on old stone steps",
+    caption: "",
+  },
+  {
+    id: "4",
+    src: "/images/couple/omkar-vrushali-temple-wall.jpg",
+    alt: "Omkar and Vrushali sitting against a carved temple wall in Koregaon",
+    caption: "",
+  },
+  {
+    id: "5",
+    src: "/images/couple/omkar-vrushali-saree-twirl.jpg",
+    alt: "Vrushali twirling her saree as Omkar smiles nearby",
+    caption: "",
+  },
 ];
 
 export const family = {

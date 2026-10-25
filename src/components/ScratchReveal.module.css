@@ -21,6 +21,38 @@
   background: linear-gradient(160deg, var(--color-ivory-100), var(--color-cream-300));
 }
 
+.dateBlock {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dateHalo {
+  position: absolute;
+  width: 220%;
+  height: 220%;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+.revealPeacock {
+  position: absolute;
+  bottom: 4%;
+  width: 56px;
+  height: 56px;
+  opacity: 0.5;
+}
+
+.revealPeacock.left {
+  left: 4%;
+}
+
+.revealPeacock.right {
+  right: 4%;
+  transform: scaleX(-1);
+}
+
 .shubhVivah {
   font-size: clamp(1.6rem, 6vw, 2.2rem);
   color: var(--color-maroon-900);

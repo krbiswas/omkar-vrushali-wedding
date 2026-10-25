@@ -51,8 +51,8 @@ All scroll animation respects `prefers-reduced-motion`: GSAP scrubbing/pinning i
 src/
   components/     Chapter components (IntroCover, ScratchReveal, MandalaWelcome, PhotoStory,
                    LandscapeScene, CountdownSection, EventTimeline, VenueSection, ClosingSection,
-                   Navigation, DecorativeSideBorder, MusicPlayer) + shared pieces (PhotoFrame,
-                   Motifs, MandalaMotif, Reveal)
+                   Navigation, DecorativeSideBorder, FloatingPetals, MusicPlayer) + shared pieces
+                   (PhotoFrame, Motifs, MandalaMotif, Reveal)
   data/wedding.ts Central content config — edit THIS file to update the invitation
   hooks/          useCountdown, useInView, usePrefersReducedMotion
   utils/          asset() (base-path-safe public asset URLs), gsapSetup (GSAP/ScrollTrigger init)
@@ -75,12 +75,18 @@ Edit the `couple` and `wedding` objects in `src/data/wedding.ts`.
 - `wedding.timezone` — IANA timezone (default `Asia/Kolkata`).
 - `wedding.venue` — confirmed: **Shivratna Mangal Karyalay**, Satara Road Koregaon Road (Via Khed), Koregaon, Maharashtra 415501. `mapUrl` points to the Google Maps share link that was supplied; update both if the family provides a different one later.
 
-### Couple photos — currently pending
-No couple photographs have made it into the repository yet — pasting an image into chat does not give this project (or any Claude Code session) a way to save that image's actual file data to disk. **To add them**, save each file (e.g. right-click → Save Image As in the chat) to `public/images/gallery/` named `1.jpg` … `5.jpg`, then:
-1. Reference them in the `gallery` array in `src/data/wedding.ts` — each entry needs `id`, `src`, `alt`, and optional `caption` (the array already has 5 entries pointing at `1.jpg`–`5.jpg`, so dropping the files in with those exact names requires no code change).
-2. The first three entries drive the cinematic **Photo Story** chapter, the 4th is the Koregaon banner photo, and the 5th appears in the closing section.
-3. Missing/broken images never show a broken-image icon — every photo slot (`PhotoFrame`) falls back to an illustrated placeholder automatically, so the site is fully presentable either way.
-4. Use web-sized, compressed images — large files will slow down the site.
+### Couple photos
+The five real photographs are in `public/images/couple/` (see `manifest.json` there for dimensions/orientation/use), referenced from the `gallery` array in `src/data/wedding.ts`:
+
+| File | Used for |
+|---|---|
+| `omkar-vrushali-river-petals.jpg` | Photo Story — 1st entrance |
+| `omkar-vrushali-temple-arch.jpg` | Photo Story — 2nd entrance |
+| `omkar-vrushali-stone-steps.jpg` | Photo Story — hero frame |
+| `omkar-vrushali-temple-wall.jpg` | Koregaon banner |
+| `omkar-vrushali-saree-twirl.jpg` | Closing section (circular inset) |
+
+To swap or add photos: drop new files into `public/images/couple/`, update the `gallery` array entries (`id`, `src`, `alt`, optional `caption`) accordingly, and update `manifest.json` for documentation. Missing/broken images never show a broken-image icon — every photo slot (`PhotoFrame`) falls back to an illustrated placeholder automatically.
 
 ### Events / function schedule
 Add entries to the `events` array in `src/data/wedding.ts`. Each event supports name, Marathi name, date, start/end time, venue, description, an optional per-event dress code, and an optional directions link. Leave the array empty to show the Marathi/English "details coming soon" placeholder (current state) instead of fabricated events.
@@ -111,7 +117,7 @@ Then push to `main` — the GitHub Actions workflow handles the rest.
 - [x] Venue name, full address, and Maps link — confirmed and implemented
 - [ ] Exact ceremony/muhurat time (not fabricated — UI clearly marks the reference time as unconfirmed)
 - [ ] Full function schedule (Haldi/Mehendi/Sangeet/etc. dates & times)
-- [ ] Couple photographs — see "Couple photos — currently pending" above
+- [x] Couple photographs — the five real photos are live (see "Couple photos" above)
 - [ ] Family names and contact details
 - [ ] Background music track (licensed)
 - [ ] RSVP / contact phone or email
