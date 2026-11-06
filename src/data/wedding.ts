@@ -51,14 +51,8 @@ export const couple = {
 export const wedding = {
   /** ISO date for the main wedding ceremony */
   date: "2026-11-26",
-  /**
-   * PENDING: the actual muhurat (ceremony time) has not been confirmed by the family.
-   * This is NOT a confirmed time — it exists only so the countdown has a reference
-   * point. The UI must always label it as provisional/unconfirmed, never as the
-   * real ceremony time. Update once the muhurat is confirmed.
-   */
-  referenceCeremonyTime: "10:00",
-  ceremonyTimeConfirmed: false,
+  referenceCeremonyTime: "14:35",
+  ceremonyTimeConfirmed: true,
   timezone: "Asia/Kolkata",
   venue: {
     name: "Shivratna Mangal Karyalay",
@@ -75,18 +69,37 @@ export const wedding = {
  * confirmed. Each event is fully optional/configurable.
  */
 export const events: WeddingEvent[] = [
-  // Example shape (left commented intentionally — do not display fabricated events):
-  // {
-  //   id: "haldi",
-  //   name: "Haldi",
-  //   nameMarathi: "हळद",
-  //   date: "2026-11-24",
-  //   startTime: "10:00",
-  //   endTime: "13:00",
-  //   venue: "Koregaon",
-  //   description: "",
-  //   dressCode: "Yellow",
-  // },
+  {
+    id: "sakharpan",
+    name: "Sakharpan",
+    nameMarathi: "साखरपान समारंभ",
+    date: "2026-11-26",
+    startTime: "10:00 AM",
+    endTime: null,
+    venue: "Shivratna Mangal Karyalay, Koregaon",
+    description: "",
+  },
+  {
+    id: "haldi",
+    name: "Haldi",
+    nameMarathi: "हळदी समारंभ",
+    date: "2026-11-26",
+    startTime: "12:05 PM",
+    endTime: null,
+    venue: "Shivratna Mangal Karyalay, Koregaon",
+    description: "",
+    dressCode: "Yellow",
+  },
+  {
+    id: "wedding",
+    name: "Wedding Ceremony",
+    nameMarathi: "शुभविवाह",
+    date: "2026-11-26",
+    startTime: "2:35 PM",
+    endTime: null,
+    venue: "Shivratna Mangal Karyalay, Koregaon",
+    description: "मिती कार्तिक कृ. ०२ शके १९४८",
+  },
 ];
 
 export const gallery: GalleryImage[] = [
