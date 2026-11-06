@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1080px;
+    height: 1920px;
+    background: linear-gradient(170deg, #4a0d1a 0%, #8a1c30 30%, #6b1525 70%, #3a0815 100%);
+    font-family: 'Cormorant Garamond', serif;
+    color: #fdf6e8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .card {
+    width: 920px;
+    height: 1720px;
+    border: 2px solid rgba(212, 175, 85, 0.5);
+    border-radius: 24px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 50px;
+    background: rgba(255,255,255,0.03);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    inset: 12px;
+    border: 1px solid rgba(212, 175, 85, 0.3);
+    border-radius: 18px;
+    pointer-events: none;
+  }
+
+  /* Corner flourishes */
+  .corner {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    opacity: 0.4;
+  }
+  .corner svg { width: 100%; height: 100%; }
+  .tl { top: 20px; left: 20px; }
+  .tr { top: 20px; right: 20px; transform: scaleX(-1); }
+  .bl { bottom: 20px; left: 20px; transform: scaleY(-1); }
+  .br { bottom: 20px; right: 20px; transform: scale(-1); }
+
+  .swastik {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 20px;
+    opacity: 0.85;
+  }
+
+  .blessing {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 28px;
+    color: #d4af55;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+  }
+
+  .label {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 32px;
+    color: #d4af55;
+    margin-bottom: 16px;
+    letter-spacing: 4px;
+  }
+
+  .title-line {
+    width: 200px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d4af55, transparent);
+    margin: 10px 0 50px;
+  }
+
+  .photo-frame {
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid #d4af55;
+    box-shadow: 0 0 40px rgba(212, 175, 85, 0.2), 0 0 80px rgba(0,0,0,0.3);
+    margin-bottom: 50px;
+  }
+  .photo-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .groom-name, .bride-name {
+    font-size: 72px;
+    font-weight: 600;
+    color: #fdf6e8;
+    letter-spacing: 6px;
+    line-height: 1.2;
+  }
+
+  .amp {
+    font-size: 48px;
+    font-style: italic;
+    color: #d4af55;
+    margin: 8px 0;
+    font-weight: 400;
+  }
+
+  .divider {
+    width: 300px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d4af55, transparent);
+    margin: 40px 0;
+  }
+
+  .date-marathi {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 30px;
+    color: #d4af55;
+    margin-bottom: 12px;
+  }
+
+  .date-english {
+    font-size: 36px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    color: #fdf6e8;
+    margin-bottom: 8px;
+  }
+
+  .day {
+    font-size: 24px;
+    color: rgba(253, 246, 232, 0.7);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+  }
+
+  .venue-name {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 28px;
+    color: #fdf6e8;
+    margin-bottom: 8px;
+  }
+
+  .venue-location {
+    font-size: 22px;
+    color: rgba(253, 246, 232, 0.6);
+    letter-spacing: 2px;
+  }
+
+  .events-row {
+    display: flex;
+    gap: 60px;
+    margin: 40px 0;
+    text-align: center;
+  }
+
+  .event {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .event-name {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 22px;
+    color: #d4af55;
+    margin-bottom: 6px;
+  }
+
+  .event-time {
+    font-size: 20px;
+    color: rgba(253, 246, 232, 0.7);
+  }
+
+  .message {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    font-size: 24px;
+    color: rgba(253, 246, 232, 0.8);
+    text-align: center;
+    max-width: 650px;
+    line-height: 1.8;
+    margin-top: 30px;
+  }
+
+  .link-note {
+    font-size: 20px;
+    color: #d4af55;
+    margin-top: 40px;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <!-- Corner flourishes -->
+  <div class="corner tl"><svg viewBox="0 0 100 100"><path d="M10,90 Q10,10 90,10" fill="none" stroke="#d4af55" stroke-width="1.5"/><path d="M20,90 Q20,20 90,20" fill="none" stroke="#d4af55" stroke-width="0.8" opacity="0.5"/><circle cx="15" cy="15" r="3" fill="#d4af55" opacity="0.6"/></svg></div>
+  <div class="corner tr"><svg viewBox="0 0 100 100"><path d="M10,90 Q10,10 90,10" fill="none" stroke="#d4af55" stroke-width="1.5"/><path d="M20,90 Q20,20 90,20" fill="none" stroke="#d4af55" stroke-width="0.8" opacity="0.5"/><circle cx="15" cy="15" r="3" fill="#d4af55" opacity="0.6"/></svg></div>
+  <div class="corner bl"><svg viewBox="0 0 100 100"><path d="M10,90 Q10,10 90,10" fill="none" stroke="#d4af55" stroke-width="1.5"/><path d="M20,90 Q20,20 90,20" fill="none" stroke="#d4af55" stroke-width="0.8" opacity="0.5"/><circle cx="15" cy="15" r="3" fill="#d4af55" opacity="0.6"/></svg></div>
+  <div class="corner br"><svg viewBox="0 0 100 100"><path d="M10,90 Q10,10 90,10" fill="none" stroke="#d4af55" stroke-width="1.5"/><path d="M20,90 Q20,20 90,20" fill="none" stroke="#d4af55" stroke-width="0.8" opacity="0.5"/><circle cx="15" cy="15" r="3" fill="#d4af55" opacity="0.6"/></svg></div>
+
+  <!-- Swastik -->
+  <svg class="swastik" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+    <line x1="30" y1="10" x2="30" y2="50" stroke="#d4af55" stroke-width="3"/>
+    <line x1="10" y1="30" x2="50" y2="30" stroke="#d4af55" stroke-width="3"/>
+    <line x1="30" y1="10" x2="40" y2="10" stroke="#d4af55" stroke-width="3"/>
+    <line x1="50" y1="30" x2="50" y2="20" stroke="#d4af55" stroke-width="3"/>
+    <line x1="30" y1="50" x2="20" y2="50" stroke="#d4af55" stroke-width="3"/>
+    <line x1="10" y1="30" x2="10" y2="40" stroke="#d4af55" stroke-width="3"/>
+    <circle cx="20" cy="20" r="2" fill="#d4af55"/>
+    <circle cx="40" cy="20" r="2" fill="#d4af55"/>
+    <circle cx="20" cy="40" r="2" fill="#d4af55"/>
+    <circle cx="40" cy="40" r="2" fill="#d4af55"/>
+  </svg>
+
+  <p class="blessing">॥ श्री गणेशाय नमः ॥</p>
+
+  <p class="label">शुभविवाह</p>
+  <div class="title-line"></div>
+
+  <!-- Photo -->
+  <div class="photo-frame">
+    <img src="images/couple/omkar-vrushali-river-petals.jpg" alt="Omkar & Vrushali" />
+  </div>
+
+  <!-- Names -->
+  <span class="groom-name">Omkar</span>
+  <span class="amp">&amp;</span>
+  <span class="bride-name">Vrushali</span>
+
+  <div class="divider"></div>
+
+  <!-- Date -->
+  <p class="date-marathi">गुरुवार दि. २६/११/२०२६</p>
+  <p class="date-english">26 November 2026</p>
+  <p class="day">Thursday</p>
+
+  <!-- Events -->
+  <div class="events-row">
+    <div class="event">
+      <span class="event-name">साखरपान</span>
+      <span class="event-time">10:00 AM</span>
+    </div>
+    <div class="event">
+      <span class="event-name">हळदी</span>
+      <span class="event-time">12:05 PM</span>
+    </div>
+    <div class="event">
+      <span class="event-name">शुभमुहूर्त</span>
+      <span class="event-time">2:35 PM</span>
+    </div>
+  </div>
+
+  <!-- Venue -->
+  <p class="venue-name">शिवरत्न मंगल कार्यालय</p>
+  <p class="venue-location">Koregaon, Maharashtra</p>
+
+  <!-- Message -->
+  <p class="message">कुटुंबियांच्या आशीर्वादाने, आम्ही आपणास आमच्या विवाह सोहळ्यास सप्रेम निमंत्रित करतो.</p>
+
+  <p class="link-note">~ आमंत्रण पत्रिका पहा ~</p>
+</div>
+</body>
+</html>

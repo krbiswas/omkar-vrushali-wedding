@@ -11,6 +11,7 @@ import { EventTimeline } from "./components/EventTimeline";
 import { VenueSection } from "./components/VenueSection";
 import { MusicPlayer } from "./components/MusicPlayer";
 import { ClosingSection } from "./components/ClosingSection";
+import { FloatingWhatsApp } from "./components/FloatingWhatsApp";
 
 function App() {
   const [opened, setOpened] = useState(false);
@@ -31,6 +32,7 @@ function App() {
         <ClosingSection />
       </main>
       <MusicPlayer />
+      <FloatingWhatsApp />
     </>
   );
 }

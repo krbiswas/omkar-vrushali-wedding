@@ -178,5 +178,17 @@ export const messages = {
 
 export const shareConfig = {
   shareTitle: "Omkar & Vrushali's Wedding Invitation",
-  shareText: "Join us in celebrating the wedding of Omkar and Vrushali!",
+  shareText: `🪷 शुभविवाह 🪷
+
+ओमकार & वृषाली
+गुरुवार, २६ नोव्हेंबर २०२६
+शिवरत्न मंगल कार्यालय, कोरेगाव
+
+🕐 साखरपान — सकाळी १०:००
+🕐 हळदी — दुपारी १२:०५
+🕐 शुभमुहूर्त — दु. ०२:३५
+
+कुटुंबियांच्या आशीर्वादाने, आम्ही आपणास आमच्या विवाह सोहळ्यास सप्रेम निमंत्रित करतो.
+
+💌 आमंत्रण पत्रिका पहा 👇`,
 };
