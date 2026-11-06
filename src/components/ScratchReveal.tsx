@@ -4,8 +4,8 @@ import { wedding, messages, couple } from "../data/wedding";
 import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 import styles from "./ScratchReveal.module.css";
 
-const REVEAL_THRESHOLD = 0.5;
-const BRUSH_RADIUS = 42;
+const REVEAL_THRESHOLD = 0.25;
+const BRUSH_RADIUS = 54;
 
 interface Particle {
   x: number;

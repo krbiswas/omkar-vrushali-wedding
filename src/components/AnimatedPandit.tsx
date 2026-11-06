@@ -121,18 +121,18 @@ export const AnimatedPandit: React.FC<AnimatedPanditProps> = ({
         {/* ── Body – seated cross-legged ── */}
         <g>
           {/* Cross-legged lower body / dhoti */}
-          <ellipse cx="95" cy="170" rx="30" ry="14" fill="#fdf8ef" />
+          <ellipse cx="95" cy="170" rx="30" ry="14" fill="#e8762c" />
           {/* Dhoti fabric folds */}
           <path
             d="M70,168 Q80,175 95,178 Q110,175 120,168"
             fill="none"
-            stroke="#e0d8c8"
+            stroke="#c45e1a"
             strokeWidth="0.6"
           />
           <path
             d="M75,172 Q85,178 95,180 Q105,178 115,172"
             fill="none"
-            stroke="#e0d8c8"
+            stroke="#c45e1a"
             strokeWidth="0.5"
           />
           {/* Torso */}
